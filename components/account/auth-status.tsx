@@ -1,3 +1,5 @@
+'use client'
+import { useAuth } from '@/contexts/auth-context';
 import React from 'react';
 
 
@@ -19,7 +21,7 @@ export default function AuthStatus() {
     return (
       <div className="bg-red-50 p-4 border border-red-200 rounded-lg">
         <div className="text-red-800">
-          <strong>Auth Error:</strong> {error}
+          <strong>Auth Error:</strong> {error.message}
         </div>
       </div>
     );

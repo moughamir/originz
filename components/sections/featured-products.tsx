@@ -11,7 +11,7 @@ async function FeaturedProductsList() {
   const products = apiProducts.map(mapApiToProduct);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
+    <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 xl:grid-cols-4">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
@@ -22,10 +22,10 @@ async function FeaturedProductsList() {
 export function FeaturedProducts() {
   return (
     <section className="py-16 lg:py-24">
-      <div className="container px-4">
-        <div className="flex items-center justify-between mb-12">
+      <div className="px-4 container">
+        <div className="flex justify-between items-center mb-12">
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tight lg:text-4xl">
+            <h2 className="font-bold text-3xl lg:text-4xl tracking-tight">
               Featured Products
             </h2>
             <p className="text-muted-foreground">
@@ -35,14 +35,15 @@ export function FeaturedProducts() {
           <Button variant="outline" asChild>
             <Link href="/products">
               View All
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 w-4 h-4" />
             </Link>
           </Button>
         </div>
 
-        <Suspense fallback={<FeaturedProductsSkeleton />}>
+        {/* <Suspense fallback={<FeaturedProductsSkeleton />}>
           <FeaturedProductsList />
-        </Suspense>
+        </Suspense> */}
+        <FeaturedProductsSkeleton />
       </div>
     </section>
   )

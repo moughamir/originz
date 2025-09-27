@@ -9,6 +9,7 @@ interface AuthContextType {
   user: User | null
   session: Session | null
   loading: boolean
+  error: AuthError | null
   signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>
   signUp: (email: string, password: string) => Promise<{ error: AuthError | null }>
   signOut: () => Promise<{ error: AuthError | null }>
@@ -82,6 +83,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     signIn,
     signUp,
     signOut,
+    error: null,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
