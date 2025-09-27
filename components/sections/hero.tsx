@@ -11,10 +11,22 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, useInView, useAnimation } from "motion/react";
+import { CountUp } from "@/components/common/count-up";
 
 export function Hero() {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const controls = useAnimation();
+const ref = useRef<HTMLDivElement | null>(null);
+const isInView = useInView(ref, { once: true, amount: 0.1 });
+
+useEffect(() => {
+  if (isInView) {
+    controls.start("visible");
+  }
+}, [controls, isInView]);
+
 
 	return (
 		<section className="relative bg-gradient-to-br from-background via-muted/50 to-primary/10 overflow-hidden">
@@ -55,7 +67,7 @@ export function Hero() {
 									</DialogHeader>
 									<div className="aspect-video">
 										<iframe
-											className="w-full h-full rounded-lg"
+											className="rounded-lg w-full h-full"
 											src="https://www.youtube.com/embed/x-vyU_MGg4M"
 											title="YouTube video player"
 											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -67,28 +79,108 @@ export function Hero() {
 						</div>
 
 						{/* Social Proof */}
-						<div className="flex items-center gap-6 pt-8">
-							<div className="text-center">
-								<div className="font-bold text-2xl">10K+</div>
+						<motion.div 
+							ref={ref}
+							className="flex items-center gap-6 pt-8"
+							initial="hidden"
+							animate={controls}
+							variants={{
+								hidden: { opacity: 0, y: 20 },
+								visible: { 
+									opacity: 1, 
+									y: 0,
+									transition: { 
+										staggerChildren: 0.2,
+										duration: 0.6,
+										ease: "easeOut"
+									}
+								}
+							}}
+						>
+							<motion.div 
+								className="text-center"
+								variants={{
+									hidden: { opacity: 0, y: 20 },
+									visible: { opacity: 1, y: 0 }
+								}}
+							>
+								<motion.div 
+									className="font-bold text-2xl"
+									variants={{
+										hidden: { opacity: 0, scale: 0.8 },
+										visible: { 
+											opacity: 1, 
+											scale: 1,
+											transition: { 
+												type: "spring",
+												stiffness: 100
+											}
+										}
+									}}
+								>
+									<CountUp end={10} suffix="K+" />
+								</motion.div>
 								<div className="text-muted-foreground text-sm">
 									Happy Customers
 								</div>
-							</div>
+							</motion.div>
 							<div className="bg-border w-px h-8"></div>
-							<div className="text-center">
-								<div className="font-bold text-2xl">4.7</div>
+							<motion.div 
+								className="text-center"
+								variants={{
+									hidden: { opacity: 0, y: 20 },
+									visible: { opacity: 1, y: 0 }
+								}}
+							>
+								<motion.div 
+									className="font-bold text-2xl"
+									variants={{
+										hidden: { opacity: 0, scale: 0.8 },
+										visible: { 
+											opacity: 1, 
+											scale: 1,
+											transition: { 
+												type: "spring",
+												stiffness: 100
+											}
+										}
+									}}
+								>
+									<CountUp end={4.7} decimals={1} />
+								</motion.div>
 								<div className="text-muted-foreground text-sm">
 									Average Rating
 								</div>
-							</div>
+							</motion.div>
 							<div className="bg-border w-px h-8"></div>
-							<div className="text-center">
-								<div className="font-bold text-2xl">50+</div>
+							<motion.div 
+								className="text-center"
+								variants={{
+									hidden: { opacity: 0, y: 20 },
+									visible: { opacity: 1, y: 0 }
+								}}
+							>
+								<motion.div 
+									className="font-bold text-2xl"
+									variants={{
+										hidden: { opacity: 0, scale: 0.8 },
+										visible: { 
+											opacity: 1, 
+											scale: 1,
+											transition: { 
+												type: "spring",
+												stiffness: 100
+											}
+										}
+									}}
+								>
+									<CountUp end={50} suffix="+" />
+								</motion.div>
 								<div className="text-muted-foreground text-sm">
 									Premium Brands
 								</div>
-							</div>
-						</div>
+							</motion.div>
+						</motion.div>
 					</div>
 
 					{/* Hero Image */}

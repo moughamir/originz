@@ -11,8 +11,6 @@ import {
   ApiProductOption,
 } from "./types";
 
-
-
 async function apiRequest<T>(
   endpoint: string,
   options: RequestInit = {}
@@ -46,9 +44,7 @@ export async function getAllProducts(options?: {
   if (options?.page) params.append("page", options.page.toString());
 
   const queryString = params.toString();
-  const endpoint = queryString
-    ? `/products?${queryString}`
-    : "/products";
+  const endpoint = queryString ? `/products?${queryString}` : "/products";
 
   try {
     const data = await apiRequest<{ products: ApiProduct[] }>(endpoint);
@@ -120,11 +116,19 @@ export async function getProductsByVendor(
 
 /**
  * Get image proxy URL
- * TODO: Fix
  */
-export function getImageProxyUrl(imageUrl: string): string {
+export function getImageProxyUrl(
+  imageUrl: string,
+  width?: number,
+  height?: number
+): string {
   const encodedUrl = encodeURIComponent(imageUrl);
-  return `${SITE_CONFIG.api}/cosmos/image-proxy?url=${encodedUrl}`;
+  let url = `${SITE_CONFIG.api}/image-proxy?url=${encodedUrl}`;
+
+  if (width) url += `&width=${width}`;
+  if (height) url += `&height=${height}`;
+
+  return url;
 }
 
 /**

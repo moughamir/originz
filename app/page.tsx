@@ -5,6 +5,7 @@ import { InfoSections } from '@/components/sections/info-sections'
 import { Partners } from '@/components/sections/partners'
 import { Reviews } from '@/components/sections/reviews'
 import { Newsletter } from '@/components/sections/newsletter'
+import AuthStatus from '@/components/account/auth-status'
 
 export const revalidate = 60; // ISR: revalidate this page every 60 seconds
 
@@ -22,6 +23,7 @@ export default function HomePage() {
       <Partners />
       <Reviews />
       <Newsletter />
+      <AuthStatus />
     </>
   )
 }
