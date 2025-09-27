@@ -47,7 +47,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
   // server roundtrip we rely on client fetch + metadata fetch above.
 
   // If you want strict 404 before rendering, uncomment:
-  try { await getProductByHandle(slug) } catch { notFound() }
+  try {
+    await getProductByHandle(slug);
+  } catch {
+    notFound();
+  }
 
   return (
     <div className="px-4 py-8 container">
