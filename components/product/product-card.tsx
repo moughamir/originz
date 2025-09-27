@@ -95,11 +95,11 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
             <span className="font-bold text-lg">
-              {formatPrice(product.price.toString())}
+              {formatPrice(product.price)}
             </span>
             {product.compare_at_price && (
               <span className="text-muted-foreground text-sm line-through">
-                {formatPrice(product.compare_at_price.toString())}
+                {formatPrice(product.compare_at_price)}
               </span>
             )}
           </div>

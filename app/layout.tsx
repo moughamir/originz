@@ -1,4 +1,3 @@
-// biome-ignore assist/source/organizeImports: <explanation>
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 

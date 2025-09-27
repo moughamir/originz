@@ -4,12 +4,12 @@ import { useSearchParams } from 'next/navigation'
 import { useQuery } from '@tanstack/react-query'
 import { ProductCard } from '@/components/product/product-card'
 import type { ApiProduct } from "@/lib/types";
-import { searchProducts, mapApiToProduct } from '@/lib/api'
+import { searchProducts } from '@/lib/api'
 
 async function getSearchResults(query: string): Promise<ApiProduct[]> {
   // Query Cosmos directly and map to internal Product type
   const apiProducts = await searchProducts(query);
-  return apiProducts.map(mapApiToProduct);
+  return apiProducts;
 }
 
 export default function SearchPage() {
@@ -23,7 +23,7 @@ export default function SearchPage() {
   })
 
   if (!query) {
-    return <div className="text-center py-12">Please enter a search term.</div>
+    return <div className="py-12 text-center">Please enter a search term.</div>
   }
 
   if (isLoading) {
@@ -35,18 +35,18 @@ export default function SearchPage() {
   }
 
   return (
-    <div className="container px-4 py-8">
-      <h1 className="text-3xl font-bold tracking-tight lg:text-4xl mb-8">
+    <div className="px-4 py-8 container">
+      <h1 className="mb-8 font-bold text-3xl lg:text-4xl tracking-tight">
         Search Results for &quot;{query}&quot;
       </h1>
       {products && products.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="gap-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {products.map(product => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       ) : (
-        <div className="text-center py-12">No products found.</div>
+        <div className="py-12 text-center">No products found.</div>
       )}
     </div>
   )

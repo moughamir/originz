@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ProductCard } from "@/components/product/product-card";
 import { ProductGridSkeleton } from "@/components/skeletons/product-card-skeleton";
 import { generateSEO } from "@/lib/seo";
-import { getAllProducts } from "@/lib/api"; // Remove mapApiToProduct import
+import { getAllProducts } from "@/lib/api"; 
 import { Suspense } from "react";
 
 export const revalidate = 600;

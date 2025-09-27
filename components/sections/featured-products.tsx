@@ -3,16 +3,16 @@ import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ProductCard } from '@/components/product/product-card'
 import { FeaturedProductsSkeleton } from '@/components/skeletons/featured-products-skeleton'
-import { getAllProducts, mapApiToProduct } from '@/lib/api'
+import { getAllProducts } from '@/lib/api'
 import { Suspense } from 'react'
 
 async function FeaturedProductsList() {
   const apiProducts = await getAllProducts({ limit: 5 });
-  const products = apiProducts.map(mapApiToProduct);
+
 
   return (
     <div className="gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 xl:grid-cols-4">
-      {products.map((product) => (
+      {apiProducts?.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
@@ -40,10 +40,10 @@ export function FeaturedProducts() {
           </Button>
         </div>
 
-        {/* <Suspense fallback={<FeaturedProductsSkeleton />}>
+        <Suspense fallback={<FeaturedProductsSkeleton />}>
           <FeaturedProductsList />
-        </Suspense> */}
-        <FeaturedProductsSkeleton />
+        </Suspense>
+  
       </div>
     </section>
   )

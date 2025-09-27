@@ -171,17 +171,17 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
         <div className="space-y-2">
           <div className="flex items-center gap-3">
             <span className="font-bold text-3xl">
-              {formatPrice(currentPrice.toString())}
+              {formatPrice(currentPrice)}
             </span>
             {product.compare_at_price && (
               <span className="text-muted-foreground text-lg line-through">
-                {formatPrice(product.compare_at_price.toString())}
+                {formatPrice(product.compare_at_price)}
               </span>
             )}
           </div>
           {product.compare_at_price && discountPercentage > 0 && (
             <p className="text-green-600 text-sm">
-                You save {formatPrice((product.compare_at_price - currentPrice).toString())} (
+                You save {formatPrice((product.compare_at_price - currentPrice))} (
               {discountPercentage}%)
             </p>
           )}
