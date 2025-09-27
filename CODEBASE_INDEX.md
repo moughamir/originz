@@ -14,7 +14,7 @@
 - **Fix**: Implement error boundaries at route and component levels
 
 ### 3. **Client-Side Data Fetching in Server Components**
-- **Location**: `app/(routes)/products/[slug]/product-details-server.tsx`
+- **Location**: `app/(routes)/products/[handle]/product-details-server.tsx`
 - **Issue**: Server component calling API that should be handled server-side
 - **Impact**: Unnecessary client-server roundtrips, hydration issues
 - **Fix**: Move API calls to proper server-side data fetching

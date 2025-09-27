@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormState } from 'react-dom'
-import { addReview } from '@/app/(routes)/products/[slug]/actions'
+import { addReview } from '@/app/(routes)/products/[handle]/actions'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'

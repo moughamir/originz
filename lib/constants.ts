@@ -1,5 +1,5 @@
 const APP_DOMAIN = process.env.NEXT_PUBLIC_SITE_URL || "originz.vercel.app";
-const APP_BRAND = process.env.NEXT_PUBLIC_STORE_NAME || "OriGenZ";
+const APP_BRAND = process.env.NEXT_PUBLIC_STORE_NAME || "Originz";
 export const SITE_CONFIG = {
   name: APP_BRAND,
   description: "Premium e-commerce storefront built with Next.js",

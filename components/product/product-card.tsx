@@ -37,7 +37,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const imageUrl =
     product.images && product.images.length > 0
       ? getImageProxyUrl(product.images[0].src)
-      : "https://via.placeholder.com/300x300.png?text=No+Image";
+      : "https://placehold.co/300x300.png?text=No+Image";
 
   return (
     <div className="group relative bg-card hover:shadow-lg border rounded-lg overflow-hidden text-card-foreground transition-all">
