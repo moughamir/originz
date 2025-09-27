@@ -60,7 +60,7 @@ export default function RootLayout({
 						<div className="flex flex-col bg-background min-h-screen">
 							<AnnouncementBar />
 							<Header />
-							<main className="flex-grow bg-red-500">{children}</main>
+							<main className="flex-grow">{children}</main>
 							<Footer />
 						</div>
 						<CookieBanner />

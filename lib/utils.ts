@@ -4,11 +4,11 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: clsx.ClassValue[]) {
   return twMerge(clsx.clsx(inputs));
 }
-export function formatPrice(price: number, currency = "USD") {
+export function formatPrice(price: string, currency = "USD") {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
-  }).format(price);
+  }).format(parseFloat(price));
 }
 
 export function generateSlug(text: string): string {

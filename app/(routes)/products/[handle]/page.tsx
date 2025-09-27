@@ -33,7 +33,7 @@ export async function generateMetadata({
       description: product.body_html,
       path: `/products/${product.handle}`,
       type: "product",
-      image: product.images?.[0]?.src,
+      image: product.images?.[0]?.src || "/web-app-manifest-512x512.png",
     });
   } catch {
     return generateSEO({ title: "Product Not Found" });

@@ -10,7 +10,15 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  // IMAGES
+   webpack: (config, { dev }) => {
+    if (dev) {
+      config.optimization = {
+        ...config.optimization,
+        moduleIds: 'named',
+      }
+    }
+    return config
+  },
   images: {
      dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
@@ -19,6 +27,12 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.unsplash.com",
+        port: '',
+        pathname: '/**',
+      },
+            {
+        protocol: "https",
+        hostname: "plus.unsplash.com",
         port: '',
         pathname: '/**',
       },

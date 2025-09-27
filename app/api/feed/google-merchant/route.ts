@@ -18,7 +18,7 @@ export async function GET() {
       <g:title><![CDATA[${product.title}]]></g:title>
       <g:description><![CDATA[${product.body_html?.replace(/<[^>]*>/g, '') || product.title}]]></g:description>
       <g:link>${SITE_CONFIG.url}/products/${product.handle}</g:link>
-      <g:image_link>${product.images?.[0]?.src || `${SITE_CONFIG.url}/placeholder.svg`}</g:image_link>
+      <g:image_link>${product.images?.[0]?.src || `${SITE_CONFIG.url}/web-app-manifest-512x512.png`}</g:image_link>
       <g:availability>${product.in_stock ? 'in stock' : 'out of stock'}</g:availability>
       <g:price>${product.price} USD</g:price>
       ${product.compare_at_price ? `<g:sale_price>${product.price} USD</g:sale_price>` : ''}

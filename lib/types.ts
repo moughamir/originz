@@ -94,7 +94,7 @@ export interface ApiProduct {
   handle: string;
   body_html: string;
   price: number;
-  compare_at_price?: number;
+  compare_at_price: number;
   images: ApiProductImage[];
   category: string;
   in_stock: boolean;

@@ -31,7 +31,7 @@ export default function CartDrawer() {
 
   return (
     <Sheet open={isOpen} onOpenChange={toggleCart}>
-      <SheetContent className="flex flex-col bg-white ">
+      <SheetContent className="flex flex-col bg-white">
         <SheetHeader>
           <SheetTitle>Shopping Cart</SheetTitle>
         </SheetHeader>
@@ -48,7 +48,7 @@ export default function CartDrawer() {
               {items.map((item) => {
                 const price = item.product.price;
                 const imageUrl =
-                  item.product.images?.[0]?.src || "/placeholder.svg";
+                  item.product.images?.[0]?.src || "/web-app-manifest-512x512.png";
 
                 return (
                   <Card key={`${item.product.id}-${item.variant}`}>

@@ -6,12 +6,15 @@ import { Star, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { formatPrice, stripHtml } from "@/lib/utils";
-import { ApiProduct } from "@/lib/types";
+import { ApiProduct, ApiProductOption, ApiProductVariant } from "@/lib/types";
 import { useCart } from "@/contexts/cart-context";
-import { getImageProxyUrl } from "@/lib/api";
+
 
 interface ProductCardProps {
-  product: ApiProduct;
+  product: ApiProduct & {
+    variants?: ApiProductVariant[];
+    options?: ApiProductOption[];
+  };
 }
 
 export function ProductCard({ product }: ProductCardProps) {
@@ -36,8 +39,8 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const imageUrl =
     product.images && product.images.length > 0
-      ? getImageProxyUrl(product.images[0].src)
-      : "https://placehold.co/300x300.png?text=No+Image";
+      ? product.images[0].src
+      : "/web-app-manifest-512x512.png";
 
   return (
     <div className="group relative bg-card hover:shadow-lg border rounded-lg overflow-hidden text-card-foreground transition-all">
@@ -92,11 +95,11 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
             <span className="font-bold text-lg">
-              {formatPrice(product.price)}
+              {formatPrice(product.price.toString())}
             </span>
             {product.compare_at_price && (
               <span className="text-muted-foreground text-sm line-through">
-                {formatPrice(product.compare_at_price)}
+                {formatPrice(product.compare_at_price.toString())}
               </span>
             )}
           </div>

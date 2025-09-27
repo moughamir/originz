@@ -114,22 +114,7 @@ export async function getProductsByVendor(
   }
 }
 
-/**
- * Get image proxy URL
- */
-export function getImageProxyUrl(
-  imageUrl: string,
-  width?: number,
-  height?: number
-): string {
-  const encodedUrl = encodeURIComponent(imageUrl);
-  let url = `${SITE_CONFIG.api}/image-proxy?url=${encodedUrl}`;
 
-  if (width) url += `&width=${width}`;
-  if (height) url += `&height=${height}`;
-
-  return url;
-}
 
 /**
  * Helper function to transform API product to internal Product type
@@ -142,39 +127,40 @@ export function mapApiToProduct(apiProduct: ApiProduct): ApiProduct {
     body_html: apiProduct.body_html,
     price: apiProduct.price,
     compare_at_price: apiProduct.compare_at_price,
-    images: apiProduct.images as ApiProductImage[],
+    images: Array.isArray(apiProduct.images) ? apiProduct.images : [],
     category: apiProduct.category,
     in_stock: apiProduct.in_stock,
     rating: apiProduct.rating,
     review_count: apiProduct.review_count,
-    tags: apiProduct.tags,
+    tags: Array.isArray(apiProduct.tags) ? apiProduct.tags : [],
     vendor: apiProduct.vendor,
-    variants: apiProduct.variants.map(
-      (variant: ApiProductVariant): ApiProductVariant => ({
-        id: variant.id,
-        title: variant.title,
-        price: variant.price,
-        available: variant.available,
-        featured_image: variant.featured_image,
-        product_id: variant.product_id,
-        requires_shipping: variant.requires_shipping,
-        taxable: variant.taxable,
-        grams: variant.grams,
-        position: variant.position,
-        created_at: variant.created_at,
-        updated_at: variant.updated_at,
-      })
-    ),
-    options: apiProduct.options.map(
-      (option: ApiProductOption): ApiProductOption => ({
-        name: option.name,
-        position: option.position,
-        values: option.values,
-        product_id: option.product_id,
-        id: option.id,
-      })
-    ),
-
+    // Fix: Check if variants exists and is an array before mapping
+    variants: Array.isArray(apiProduct.variants) 
+      ? apiProduct.variants.map((variant: ApiProductVariant): ApiProductVariant => ({
+          id: variant.id,
+          title: variant.title,
+          price: variant.price,
+          available: variant.available,
+          featured_image: variant.featured_image,
+          product_id: variant.product_id,
+          requires_shipping: variant.requires_shipping,
+          taxable: variant.taxable,
+          grams: variant.grams,
+          position: variant.position,
+          created_at: variant.created_at,
+          updated_at: variant.updated_at,
+        }))
+      : [], // Default to empty array if variants is undefined
+    // Fix: Check if options exists and is an array before mapping
+    options: Array.isArray(apiProduct.options)
+      ? apiProduct.options.map((option: ApiProductOption): ApiProductOption => ({
+          name: option.name,
+          position: option.position,
+          values: Array.isArray(option.values) ? option.values : [],
+          product_id: option.product_id,
+          id: option.id,
+        }))
+      : [], // Default to empty array if options is undefined
     created_at: apiProduct.created_at,
     updated_at: apiProduct.updated_at,
   };

@@ -31,7 +31,34 @@ useEffect(() => {
 	return (
 		<section className="relative bg-gradient-to-br from-background via-muted/50 to-primary/10 overflow-hidden">
 			<div className="px-4 py-16 lg:py-24 container">
-				<div className="items-center gap-8 lg:gap-12 grid lg:grid-cols-2">
+				<div className="items-center gap-8 lg:gap-12 grid lg:grid-cols-2 lg:grid-flow-col-dense">
+					{/* Hero Image - first on mobile, right on desktop */}
+					<div className="relative lg:order-last">
+						<div className="relative bg-gradient-to-br from-primary/15 via-primary/5 to-secondary/20 mx-auto lg:mx-0 rounded-2xl lg:max-w-none max-w-xs aspect-square lg:aspect-4/5 overflow-hidden">
+							<Image
+								src="https://images.unsplash.com/photo-1530738472658-404f693bd4b2?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+								alt="Hero product showcase"
+								fill
+								sizes="(min-width: 1024px) 50vw, 100vw"
+								className="object-cover"
+								priority
+							/>
+							{/* Floating Cards */}
+							<div className="top-6 right-6 absolute bg-card/90 shadow-lg backdrop-blur-sm p-4 rounded-lg">
+								<div className="flex items-center gap-2">
+									<div className="bg-green-500 rounded-full w-2 h-2"></div>
+									<span className="font-medium text-sm">Free Shipping</span>
+								</div>
+							</div>
+							<div className="bottom-6 left-6 absolute bg-card/90 shadow-lg backdrop-blur-sm p-4 rounded-lg">
+								<div className="flex items-center gap-2">
+									<span className="font-bold text-primary text-2xl">20%</span>
+									<span className="text-sm">Off Today</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
 					<div className="space-y-6 animate-fade-in">
 						<div className="space-y-4">
 							<div className="inline-flex items-center bg-primary/10 px-3 py-1 rounded-full font-medium text-primary text-xs">
@@ -181,33 +208,6 @@ useEffect(() => {
 								</div>
 							</motion.div>
 						</motion.div>
-					</div>
-
-					{/* Hero Image */}
-					<div className="relative">
-						<div className="relative bg-gradient-to-br from-primary/15 via-primary/5 to-secondary/20 rounded-2xl aspect-square lg:aspect-4/5 overflow-hidden">
-							<Image
-								src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=800&fit=crop"
-								alt="Hero product showcase"
-								fill
-								sizes="(min-width: 1024px) 50vw, 100vw"
-								className="object-cover"
-								priority
-							/>
-							{/* Floating Cards */}
-							<div className="top-6 right-6 absolute bg-card/90 shadow-lg backdrop-blur-sm p-4 rounded-lg">
-								<div className="flex items-center gap-2">
-									<div className="bg-green-500 rounded-full w-2 h-2"></div>
-									<span className="font-medium text-sm">Free Shipping</span>
-								</div>
-							</div>
-							<div className="bottom-6 left-6 absolute bg-card/90 shadow-lg backdrop-blur-sm p-4 rounded-lg">
-								<div className="flex items-center gap-2">
-									<span className="font-bold text-primary text-2xl">20%</span>
-									<span className="text-sm">Off Today</span>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

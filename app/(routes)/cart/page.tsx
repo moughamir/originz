@@ -21,10 +21,10 @@ function CartContent() {
 
   if (items.length === 0) {
     return (
-      <div className="text-center py-12">
-        <ShoppingCart className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-        <h2 className="text-2xl font-semibold mb-2">Your cart is empty</h2>
-        <p className="text-muted-foreground mb-6">Add some items to your cart to get started.</p>
+      <div className="py-12 text-center">
+        <ShoppingCart className="mx-auto mb-4 w-12 h-12 text-muted-foreground" />
+        <h2 className="mb-2 font-semibold text-2xl">Your cart is empty</h2>
+        <p className="mb-6 text-muted-foreground">Add some items to your cart to get started.</p>
         <Button asChild>
           <Link href="/products">Continue Shopping</Link>
         </Button>
@@ -33,17 +33,17 @@ function CartContent() {
   }
 
   return (
-    <div className="grid lg:grid-cols-3 gap-8">
+    <div className="gap-8 grid lg:grid-cols-3">
       {/* Cart Items */}
-      <div className="lg:col-span-2 space-y-4">
+      <div className="space-y-4 lg:col-span-2">
         {items.map((item) => (
           <div key={item.id} className="flex items-center gap-4 p-4 border rounded-lg">
           <Image
-              src={item.image || "/placeholder.svg"}
+              src={item.image || "/web-app-manifest-512x512.png"}
               alt={item.name}
               width={80}
               height={80}
-              className="w-20 h-20 object-cover rounded-md"
+              className="rounded-md w-20 h-20 object-cover"
             />
             <div className="flex-1">
               <h3 className="font-semibold">{item.name}</h3>
@@ -51,7 +51,7 @@ function CartContent() {
             </div>
             <div className="flex items-center gap-2">
               <Button variant="outline" size="icon" onClick={() => updateQuantity(item.product.id, item.variant.id, item.quantity - 1)}>
-                <Minus className="h-4 w-4" />
+                <Minus className="w-4 h-4" />
               </Button>
               <Input
                 type="number"
@@ -60,19 +60,19 @@ function CartContent() {
                 readOnly
               />
               <Button variant="outline" size="icon" onClick={() => updateQuantity(item.product.id, item.variant.id, item.quantity + 1)}>
-                <Plus className="h-4 w-4" />
+                <Plus className="w-4 h-4" />
               </Button>
             </div>
             <Button variant="ghost" size="icon" onClick={() => removeItem(item.product.id, item.variant.id)}>
-              <X className="h-4 w-4" />
+              <X className="w-4 h-4" />
             </Button>
           </div>
         ))}
       </div>
 
       {/* Order Summary */}
-      <div className="bg-muted/50 rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
+      <div className="bg-muted/50 p-6 rounded-lg">
+        <h2 className="mb-4 font-semibold text-xl">Order Summary</h2>
         <div className="space-y-3">
           <div className="flex justify-between">
             <span>Subtotal</span>
@@ -92,10 +92,10 @@ function CartContent() {
             <span>{formatPrice(total)}</span>
           </div>
         </div>
-        <Button className="w-full mt-6" size="lg" asChild>
+        <Button className="mt-6 w-full" size="lg" asChild>
           <Link href="/checkout">Proceed to Checkout</Link>
         </Button>
-        <p className="text-xs text-muted-foreground mt-2 text-center">
+        <p className="mt-2 text-muted-foreground text-xs text-center">
           Shipping calculated at checkout
         </p>
       </div>
@@ -105,8 +105,8 @@ function CartContent() {
 
 export default function CartPage() {
   return (
-    <div className="container px-4 py-8">
-      <h1 className="text-3xl font-bold tracking-tight lg:text-4xl mb-8">
+    <div className="px-4 py-8 container">
+      <h1 className="mb-8 font-bold text-3xl lg:text-4xl tracking-tight">
         Shopping Cart
       </h1>
 

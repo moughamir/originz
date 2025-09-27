@@ -12,7 +12,7 @@ import { useCart } from "@/contexts/cart-context";
 import type { ApiProduct, ApiProductVariant } from "@/lib/types";
 import { ProductReviews } from "@/components/product/product-reviews";
 import { AddReviewForm } from "@/components/product/add-review-form";
-import { getImageProxyUrl } from "@/lib/api";
+
 
 interface ProductDetailsClientProps {
   product: ApiProduct;
@@ -65,7 +65,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
         )
       : 0;
 
-  const currentPrice = selectedVariant ? selectedVariant.price : product.price;
+  const currentPrice = product.price;
 
   return (
     <div className="gap-8 lg:gap-12 grid lg:grid-cols-2">
@@ -73,11 +73,12 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
       <div className="space-y-4">
         <div className="relative bg-muted rounded-lg aspect-square overflow-hidden">
           <Image
-            src={getImageProxyUrl(
-              selectedVariant?.featured_image || (product.images && product.images.length > 0 ? product.images[0].src : '/placeholder.svg')
-            )}
+            src={
+              selectedVariant?.featured_image || (product.images && product.images.length > 0 ? product.images[0].src : '/web-app-manifest-512x512.png')
+            }
             alt={product.title}
             fill
+            unoptimized
             className="object-cover"
             priority
           />
@@ -95,7 +96,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
                 className="relative bg-muted rounded-md aspect-square overflow-hidden"
               >
                 <Image
-                  src={getImageProxyUrl(image.src)}
+                  src={image.src}
                   alt={`${product.title} ${index + 2}`}
                   fill
                   className="object-cover"
@@ -143,7 +144,7 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
             <div className="space-y-4">
               {product.options.map((option) => (
                 <div key={option.id}>
-                  <h3 className="text-sm font-medium mb-2">{option.name}</h3>
+                  <h3 className="mb-2 font-medium text-sm">{option.name}</h3>
                   <Select
                     onValueChange={(value) =>
                       handleOptionChange(option.name, value)
@@ -170,17 +171,17 @@ export function ProductDetailsClient({ product }: ProductDetailsClientProps) {
         <div className="space-y-2">
           <div className="flex items-center gap-3">
             <span className="font-bold text-3xl">
-              {formatPrice(currentPrice)}
+              {formatPrice(currentPrice.toString())}
             </span>
             {product.compare_at_price && (
               <span className="text-muted-foreground text-lg line-through">
-                {formatPrice(product.compare_at_price)}
+                {formatPrice(product.compare_at_price.toString())}
               </span>
             )}
           </div>
           {product.compare_at_price && discountPercentage > 0 && (
             <p className="text-green-600 text-sm">
-              You save {formatPrice(product.compare_at_price - currentPrice)} (
+                You save {formatPrice((product.compare_at_price - currentPrice).toString())} (
               {discountPercentage}%)
             </p>
           )}
