@@ -8,7 +8,7 @@ export function formatPrice(price: number, currency = "USD") {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
-  }).format(price);
+  }).format(Number(price));
 }
 
 export function generateSlug(text: string): string {
@@ -33,7 +33,7 @@ export function generateImage({
   fg: string | number;
   text: string;
 }): string {
-  return `https://via.placeholder.com/${dim.w}x${dim.h}/${bg}/${fg}?text=${text}`;
+  return `https://placehold.co/${dim.w}x${dim.h}/${bg}/${fg}?text=${text}`;
 }
 
 export function stripHtml(html: string): string {

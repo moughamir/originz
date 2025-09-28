@@ -6,6 +6,7 @@ import { Partners } from '@/components/sections/partners'
 import { Reviews } from '@/components/sections/reviews'
 import { Newsletter } from '@/components/sections/newsletter'
 
+
 export const revalidate = 60; // ISR: revalidate this page every 60 seconds
 
 export const metadata = generateSEO({
@@ -15,14 +16,21 @@ export const metadata = generateSEO({
 
 export default function HomePage() {
   return (
-    <>
+    <div className='mx-auto container'>
+      
       <Hero />
       <FeaturedProducts />
       <InfoSections />
       <Partners />
       <Reviews />
-      <Newsletter />
-    </>
+      {typeof window !== 'undefined' && !localStorage.getItem('visited') && (
+        <>
+          <Newsletter />
+          <script dangerouslySetInnerHTML={{ __html: `localStorage.setItem('visited','1')` }} />
+        </>
+      )}
+     
+    </div>
   )
 }
 

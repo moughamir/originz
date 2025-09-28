@@ -6,12 +6,15 @@ import { Star, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { formatPrice, stripHtml } from "@/lib/utils";
-import { ApiProduct } from "@/lib/types";
+import { ApiProduct, ApiProductOption, ApiProductVariant } from "@/lib/types";
 import { useCart } from "@/contexts/cart-context";
-import { getImageProxyUrl } from "@/lib/api";
+
 
 interface ProductCardProps {
-  product: ApiProduct;
+  product: ApiProduct & {
+    variants?: ApiProductVariant[];
+    options?: ApiProductOption[];
+  };
 }
 
 export function ProductCard({ product }: ProductCardProps) {
@@ -36,8 +39,8 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const imageUrl =
     product.images && product.images.length > 0
-      ? getImageProxyUrl(product.images[0].src)
-      : "https://via.placeholder.com/300x300.png?text=No+Image";
+      ? product.images[0].src
+      : "/web-app-manifest-512x512.png";
 
   return (
     <div className="group relative bg-card hover:shadow-lg border rounded-lg overflow-hidden text-card-foreground transition-all">

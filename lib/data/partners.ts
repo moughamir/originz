@@ -5,7 +5,7 @@ export const PARTNERS: Partner[] = [
   {
     id: 1,
     name: "TechCorp",
-    logo: "https://via.placeholder.com/120x60/008060/ffffff?text=TechCorp",
+    logo: "https://placehold.co/180x96/fff/000?text=TechCorp",
     website: "https://techcorp.com",
   },
   {
@@ -13,11 +13,11 @@ export const PARTNERS: Partner[] = [
     name: "GreenLife",
     logo: generateImage({
       text: "GreenLife",
-      bg: "008060",
-      fg: "ffffff",
+      bg: "fff",
+      fg: "000",
       dim: {
-        w: 120,
-        h: 60,
+        w: 180,
+        h: 96,
       },
     }),
     website: "https://greenlife.com",
@@ -25,13 +25,13 @@ export const PARTNERS: Partner[] = [
   {
     id: 3,
     name: "Urban Style",
-    logo: "https://via.placeholder.com/120x60/008060/ffffff?text=Urban+Style",
+    logo: "https://placehold.co/180x96/fff/000?text=Urban+Style",
     website: "https://urbanstyle.com",
   },
   {
     id: 4,
     name: "Wellness Co",
-    logo: "https://via.placeholder.com/120x60/008060/ffffff?text=Wellness+Co",
+    logo: "https://placehold.co/180x96/fff/000?text=Wellness+Co",
     website: "https://wellness.com",
   },
 ];

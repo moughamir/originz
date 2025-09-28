@@ -9,17 +9,17 @@ import { Suspense } from "react";
 export const revalidate = 60; 
 
 interface ProductPageProps {
-  params: { slug: string };
+  params: { handle: string };
 }
 
 export async function generateStaticParams() {
 
   try {
-    const products = await getAllProducts({ limit: 100, fields: "handle" });
-    return products.filter((p) => p.handle).map((p) => ({ slug: p.handle }));
+    const products = await getAllProducts({ limit: 100});
+    return products.filter((p) => p.handle).map((p) => ({ handle: p.handle }));
   } catch {
     
-    return [] as { slug: string }[];
+    return [] as { handle: string }[];
   }
 }
 
@@ -27,13 +27,13 @@ export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
   try {
-    const product = await getProductByHandle(params.slug);
+    const product = await getProductByHandle(params.handle);
     return generateSEO({
       title: product.title,
       description: product.body_html,
       path: `/products/${product.handle}`,
       type: "product",
-      image: product.images?.[0]?.src,
+      image: product.images?.[0]?.src || "/web-app-manifest-512x512.png",
     });
   } catch {
     return generateSEO({ title: "Product Not Found" });
@@ -41,11 +41,11 @@ export async function generateMetadata({
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  const { slug } = params;
+  const { handle } = params;
 
   return (
     <Suspense fallback={<ProductDetailsSkeleton />}>
-      <ProductDetailsServer slug={slug} />
+      <ProductDetailsServer handle={handle} />  
     </Suspense>
   );
 }

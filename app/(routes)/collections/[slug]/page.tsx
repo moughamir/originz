@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { generateSEO } from "@/lib/seo";
-import { getAllProducts, mapApiToProduct } from "@/lib/api";
+import { getAllProducts } from "@/lib/api";
 import { ProductCard } from "@/components/product/product-card";
 import { CollectionSkeleton } from "@/components/skeletons/collection-skeleton";
+import { ApiProduct } from "@/lib/types";
 
 export const revalidate = 60; 
 
@@ -50,35 +51,34 @@ export async function generateMetadata({
 
 async function CollectionProducts({ slug }: { slug: string }) {
   
-  let products: ReturnType<typeof mapApiToProduct>[] = [];
+  let products: ApiProduct[] = [];
   
   try {
-    const apiProducts = await getAllProducts({ limit: 48 });
-    const allProducts = apiProducts.map(mapApiToProduct);
+    const apiProducts = await getAllProducts({ limit: 48 }); 
     
     // Filter products based on collection type
     switch (slug) {
       case 'sale':
-        products = allProducts.filter(p => p.compare_at_price && p.compare_at_price > p.price);
+        products = apiProducts.filter(p => p.compare_at_price && p.compare_at_price > p.price);
         break;
       case 'new':
         // Filter products created in the last 30 days (mock logic)
-        products = allProducts.slice(0, 12);
+        products = apiProducts.slice(0, 12);
         break;
       case 'featured':
         // Filter products with high ratings
-        products = allProducts.filter(p => p.rating && p.rating >= 4);
+        products = apiProducts.filter(p => p.rating && p.rating >= 4);
         break;
       case 'bestsellers':
         // Filter products with high review counts
-        products = allProducts.filter(p => p.review_count && p.review_count >= 10);
+        products = apiProducts.filter(p => p.review_count && p.review_count >= 10);
         break;
       case 'trending':
         // Mock trending products (could be based on views, sales, etc.)
-        products = allProducts.slice(0, 16);
+        products = apiProducts.slice(0, 16);
         break;
       default:
-        products = allProducts;
+        products = apiProducts;
     }
   } catch (error) {
     console.error('Error fetching collection products:', error);
@@ -86,7 +86,7 @@ async function CollectionProducts({ slug }: { slug: string }) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
@@ -110,15 +110,15 @@ export default function CollectionPage({ params }: CollectionPageProps) {
   const description = `Discover our curated collection of ${title.toLowerCase()}. Find the perfect items for your needs.`;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-gray-50 min-h-screen">
       {/* Collection Header */}
       <div className="bg-white border-b">
-        <div className="container px-4 py-12">
+        <div className="px-4 py-12 container">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 mb-4">
+            <h1 className="mb-4 font-bold text-gray-900 text-4xl tracking-tight">
               {title}
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-gray-600 text-lg">
               {description}
             </p>
           </div>
@@ -127,15 +127,15 @@ export default function CollectionPage({ params }: CollectionPageProps) {
 
       {/* Collection Filters */}
       <div className="bg-white border-b">
-        <div className="container px-4 py-4">
-          <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="px-4 py-4 container">
+          <div className="flex flex-wrap justify-between items-center gap-4">
             <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-600">Filter by:</span>
+              <span className="text-gray-600 text-sm">Filter by:</span>
               <div className="flex space-x-2">
                 {['All', 'Price', 'Rating', 'Brand'].map((filter) => (
                   <button
                     key={filter}
-                    className="px-3 py-1 text-sm border border-gray-300 rounded-full hover:bg-gray-50 transition-colors"
+                    className="hover:bg-gray-50 px-3 py-1 border border-gray-300 rounded-full text-sm transition-colors"
                   >
                     {filter}
                   </button>
@@ -144,8 +144,8 @@ export default function CollectionPage({ params }: CollectionPageProps) {
             </div>
             
             <div className="flex items-center gap-4">
-              <span className="text-sm text-gray-600">Sort by:</span>
-              <select className="px-3 py-1 text-sm border border-gray-300 rounded-md">
+              <span className="text-gray-600 text-sm">Sort by:</span>
+              <select className="px-3 py-1 border border-gray-300 rounded-md text-sm">
                 <option>Featured</option>
                 <option>Price: Low to High</option>
                 <option>Price: High to Low</option>
@@ -158,7 +158,7 @@ export default function CollectionPage({ params }: CollectionPageProps) {
       </div>
 
       {/* Products Grid */}
-      <div className="container px-4 py-8">
+      <div className="px-4 py-8 container">
         <Suspense fallback={<CollectionSkeleton />}>
           <CollectionProducts slug={slug} />
         </Suspense>
