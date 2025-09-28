@@ -10,7 +10,7 @@ export const CUSTOMER_REVIEWS: Review[] = [
     date: "2024-01-15",
     verified: true,
     avatar:
-      "https://images.unsplash.com/photo-1588516903720-8ceb67f9ef84?w=100&h=100&fit=crop&crop=face",
+      "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
   },
   {
     id: 2,

@@ -4,12 +4,12 @@ import { PARTNERS } from '@/lib/data/partners'
 export function Partners() {
   return (
     <section className="py-16 lg:py-24">
-      <div className="px-4 container">
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 font-bold text-3xl lg:text-4xl tracking-tight">
+      <div className="container px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold tracking-tight lg:text-4xl mb-4">
             Trusted by Leading Brands
           </h2>
-          <p className="mx-auto max-w-2xl text-muted-foreground">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             We partner with the world&apos;s most innovative companies to bring you the best products.
           </p>
         </div>
@@ -24,9 +24,8 @@ export function Partners() {
                 src={partner.logo}
                 alt={partner.name}
                 width={120}
-                height={96}
-                unoptimized={true}
-                className="w-auto h-12"
+                height={60}
+                className="h-12 w-auto"
               />
             </div>
           ))}

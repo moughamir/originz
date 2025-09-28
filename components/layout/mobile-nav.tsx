@@ -9,23 +9,22 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { NAVIGATION_ITEMS } from '@/lib/constants'
-import { Logo } from '../common/logo'
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen} >
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="md:hidden">
           <Menu className="h-6 w-6" />
           <span className="sr-only">Open menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="z-50  flex flex-col bg-white p-4">
+      <SheetContent side="left" className="flex flex-col">
         <SheetHeader>
-          <SheetTitle><Logo /></SheetTitle>
+          <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
         <div className="flex-1 py-4">
           <nav className="flex flex-col gap-4">
@@ -34,7 +33,7 @@ export function MobileNav() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'text-lg font-medium border-neutral-50 p-4',
+                  'text-lg font-medium',
                   pathname === link.href ? 'text-primary' : 'text-muted-foreground'
                 )}
                 onClick={() => setIsOpen(false)}

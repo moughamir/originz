@@ -1,4 +1,4 @@
-import {  createServerClient } from "@supabase/ssr";
+import { type CookieOptions, createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 export async function createClient() {
@@ -13,30 +13,36 @@ export async function createClient() {
 
   return createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
-      getAll() {
-        return cookieStore
-          .getAll()
-          .map((c) => ({ name: c.name, value: c.value }));
+      get(name: string) {
+        return cookieStore.get(name)?.value;
       },
-      setAll(cookies) {
+      set(name: string, value: string, options: CookieOptions) {
         try {
-          cookies.forEach(({ name, value, options }) =>
-            cookieStore.set({ name, value, ...options })
-          );
+          cookieStore.set({ name, value, ...options });
         } catch (error) {
+          // The `cookies().set()` method can only be called in a Server Action or Route Handler.
+          // Log for visibility in development; ignore in production to avoid noisy logs.
           if (process.env.NODE_ENV !== "production") {
-            console.error("[Supabase] Failed to set cookies", error);
+            console.error("[Supabase] Failed to set cookie", {
+              name,
+              message: (error as Error)?.message,
+            });
           }
         }
       },
-    },
-    cookieOptions: {
-      name: "__supabase",
-      domain: process.env.NEXT_PUBLIC_SITE_URL,
-      path: "/",
-      secure: true,
-      httpOnly: true,
-      sameSite: "none",
+      remove(name: string, options: CookieOptions) {
+        try {
+          cookieStore.set({ name, value: "", ...options });
+        } catch (error) {
+          // The `cookies().set()` method can only be called in a Server Action or Route Handler.
+          if (process.env.NODE_ENV !== "production") {
+            console.error("[Supabase] Failed to remove cookie", {
+              name,
+              message: (error as Error)?.message,
+            });
+          }
+        }
+      },
     },
   });
 }

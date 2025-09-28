@@ -1,6 +1,5 @@
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
-
+// biome-ignore assist/source/organizeImports: <explanation>
+import { Inter } from "next/font/google";
 import type { Viewport } from "next";
 import "./globals.css";
 
@@ -14,10 +13,8 @@ import { PWAProvider } from "@/components/pwa/pwa-provider";
 
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import ErrorBoundary from "@/components/common/error-boundary";
-import DebugTracker from "@/components/common/debug-track";
 
-
+const inter = Inter({ subsets: ["latin"] });
 
 export const viewport: Viewport = {
 	width: "device-width",
@@ -37,7 +34,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
+		<html lang="en" suppressHydrationWarning>
 			<head>
 				<meta name="apple-mobile-web-app-title" content="Originz" />
 				<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,11 +49,10 @@ export default function RootLayout({
 				<link rel="manifest" href="/manifest.json" />
 				<SchemaMarkup />
 			</head>
-			<body className='will-change-scroll'>
-				<ErrorBoundary>
+			<body className={inter.className}>
 				<Providers>
 					<PWAProvider>
-						<div className="flex flex-col bg-background min-h-screen">
+						<div className="flex flex-col min-h-screen bg-background">
 							<AnnouncementBar />
 							<Header />
 							<main className="flex-grow">{children}</main>
@@ -65,10 +61,8 @@ export default function RootLayout({
 						<CookieBanner />
 					</PWAProvider>
 				</Providers>
-				</ErrorBoundary>
 				<Analytics />
 				<SpeedInsights />
-				<DebugTracker />
 			</body>
 		</html>
 	);

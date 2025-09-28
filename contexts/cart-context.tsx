@@ -11,7 +11,7 @@ import type {
   ClientCartState,
 } from "@/lib/types";
 import { useAuth } from "./auth-context";
-
+import { mapApiToProduct } from "@/lib/api";
 
 export type CartAction =
   | {
@@ -146,9 +146,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
           cartData.cart_items.map(async (item: ApiCartItem) => {
             const productRes = await fetch(`/api/products/${item.product}`);
             const productData = await productRes.json();
-            const product = productData;
+            const product = mapApiToProduct(productData);
             const variant = product.variants.find(
-              (v: ApiProductVariant) => v.id === item.variant_id
+              (v) => v.id === item.variant_id
             );
 
             return {

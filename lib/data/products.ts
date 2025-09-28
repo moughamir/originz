@@ -1,11 +1,11 @@
 import type { ApiProduct } from "@/lib/types";
-import { getAllProducts } from "@/lib/api";
+import { getAllProducts, mapApiToProduct } from "@/lib/api";
 
 // Fetch first 5 products from the API
 export async function getFeaturedProducts(): Promise<ApiProduct[]> {
   try {
     const apiProducts = await getAllProducts({ limit: 5 });
-    return apiProducts;
+    return apiProducts.map(mapApiToProduct);
   } catch (error) {
     console.error("Failed to fetch featured products:", error);
     return [];

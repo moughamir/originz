@@ -10,35 +10,35 @@ import { subscribeToNewsletter } from '@/app/api/newsletter/actions';
 
 export function Footer() {
   return (
-    <footer className="bg-gray-50 mx-auto p-0 border-t w-screen">
+    <footer className="bg-gray-50 border-t">
       {/* Newsletter Section */}
       <div className="bg-primary text-primary-foreground">
-        <div className="px-4 py-12 container">
+        <div className="container px-4 py-12">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="mb-2 font-bold text-2xl">Stay in the Loop</h2>
-            <p className="opacity-90 mb-6">
+            <h2 className="text-2xl font-bold mb-2">Stay in the Loop</h2>
+            <p className="mb-6 opacity-90">
               Get exclusive offers, new product updates, and style tips delivered to your inbox.
             </p>
             <form
               action={subscribeToNewsletter}
-              className="flex gap-2 mx-auto max-w-md"
+              className="flex gap-2 max-w-md mx-auto"
             >
               <Input
                 type="email"
                 name="email"
                 placeholder="Enter your email address"
-                className="bg-white border-0 focus:ring-2 focus:ring-white/20 text-gray-900"
+                className="bg-white text-gray-900 border-0 focus:ring-2 focus:ring-white/20"
                 required
               />
               <Button 
                 variant="secondary" 
                 type="submit"
-                className="bg-white hover:bg-gray-100 font-medium text-primary"
+                className="bg-white text-primary hover:bg-gray-100 font-medium"
               >
                 Subscribe
               </Button>
             </form>
-            <p className="opacity-75 mt-3 text-xs">
+            <p className="text-xs mt-3 opacity-75">
               By subscribing, you agree to receive promotional emails. You can unsubscribe at any time.
             </p>
           </div>
@@ -46,30 +46,30 @@ export function Footer() {
       </div>
 
       {/* Main Footer Content */}
-      <div className="px-4 py-12 container">
-        <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="space-y-4">
             <Logo />
-            <p className="text-gray-600 text-sm leading-relaxed">
+            <p className="text-sm text-gray-600 leading-relaxed">
               Your trusted destination for premium products. We&apos;re committed to delivering 
               exceptional quality and outstanding customer service.
             </p>
             <div className="space-y-3">
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <MapPin className="w-4 h-4 text-gray-400" />
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <MapPin className="h-4 w-4 text-gray-400" />
                 <span
                   dangerouslySetInnerHTML={{
                     __html: APP_CONTACTS.address.office,
                   }}
                 />
               </div>
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <Phone className="w-4 h-4 text-gray-400" />
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Phone className="h-4 w-4 text-gray-400" />
                 <span>{APP_CONTACTS.phone.main}</span>
               </div>
-              <div className="flex items-center gap-2 text-gray-600 text-sm">
-                <Mail className="w-4 h-4 text-gray-400" />
+              <div className="flex items-center gap-2 text-sm text-gray-600">
+                <Mail className="h-4 w-4 text-gray-400" />
                 <span>{APP_CONTACTS.email.getInTouch}</span>
               </div>
             </div>
@@ -77,13 +77,13 @@ export function Footer() {
 
           {/* Company Links */}
           <div>
-            <h3 className="mb-4 font-semibold text-gray-900">Company</h3>
+            <h3 className="font-semibold mb-4 text-gray-900">Company</h3>
             <ul className="space-y-3">
               {FOOTER_LINKS.company.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-gray-600 hover:text-gray-900 text-sm transition-colors"
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -94,13 +94,13 @@ export function Footer() {
 
           {/* Support Links */}
           <div>
-            <h3 className="mb-4 font-semibold text-gray-900">Customer Care</h3>
+            <h3 className="font-semibold mb-4 text-gray-900">Customer Care</h3>
             <ul className="space-y-3">
               {FOOTER_LINKS.support.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-gray-600 hover:text-gray-900 text-sm transition-colors"
+                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -112,30 +112,30 @@ export function Footer() {
           {/* Social & Legal */}
           <div className="space-y-6">
             <div>
-              <h3 className="mb-4 font-semibold text-gray-900">Connect With Us</h3>
+              <h3 className="font-semibold mb-4 text-gray-900">Connect With Us</h3>
               <div className="flex gap-3">
                 <IconButton variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
-                  <Facebook className="w-4 h-4" />
+                  <Facebook className="h-4 w-4" />
                   <span className="sr-only">Facebook</span>
                 </IconButton>
                 <IconButton variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
-                  <Twitter className="w-4 h-4" />
+                  <Twitter className="h-4 w-4" />
                   <span className="sr-only">Twitter</span>
                 </IconButton>
                 <IconButton variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
-                  <Instagram className="w-4 h-4" />
+                  <Instagram className="h-4 w-4" />
                   <span className="sr-only">Instagram</span>
                 </IconButton>
               </div>
             </div>
             <div>
-              <h3 className="mb-4 font-semibold text-gray-900">Legal</h3>
+              <h3 className="font-semibold mb-4 text-gray-900">Legal</h3>
               <ul className="space-y-3">
                 {FOOTER_LINKS.legal.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-gray-600 hover:text-gray-900 text-sm transition-colors"
+                      className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -150,13 +150,13 @@ export function Footer() {
       <Separator />
 
       {/* Bottom Footer */}
-      <div className="bg-white px-4 py-6 border-t container">
-        <div className="flex md:flex-row flex-col justify-between items-center gap-4">
-          <p className="text-gray-600 text-sm">
+      <div className="container px-4 py-6 bg-white border-t">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-gray-600">
             © 2024 {SITE_CONFIG.name}. All rights reserved.
           </p>
           <PaymentMethods />
-          <div className="flex flex-wrap gap-4 text-gray-600 text-xs">
+          <div className="flex flex-wrap gap-4 text-xs text-gray-600">
             <Link href="/privacy-policy" className="hover:text-gray-900 transition-colors">
               Privacy Policy
             </Link>

@@ -122,36 +122,36 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="px-4 py-8 max-w-6xl container">
+    <div className="container px-4 py-8 max-w-6xl">
       {/* Header */}
       <div className="mb-8">
         <Link 
           href="/cart" 
-          className="inline-flex items-center gap-2 mb-4 text-gray-600 hover:text-gray-900 text-sm"
+          className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 mb-4"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="h-4 w-4" />
           Back to Cart
         </Link>
-        <h1 className="font-bold text-3xl tracking-tight">Checkout</h1>
-        <p className="mt-2 text-gray-600">
+        <h1 className="text-3xl font-bold tracking-tight">Checkout</h1>
+        <p className="text-gray-600 mt-2">
           Complete your order securely
         </p>
       </div>
 
-      <div className="gap-8 grid lg:grid-cols-2">
+      <div className="grid lg:grid-cols-2 gap-8">
         {/* Checkout Form */}
         <div className="space-y-6">
           {/* Customer Information */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <CreditCard className="w-5 h-5" />
+                <CreditCard className="h-5 w-5" />
                 Customer Information
               </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="gap-4 grid grid-cols-2">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="firstName">First Name *</Label>
                     <Input
@@ -198,8 +198,8 @@ export default function CheckoutPage() {
 
                 {/* Shipping Address */}
                 <div>
-                  <h3 className="flex items-center gap-2 mb-4 font-medium">
-                    <Truck className="w-4 h-4" />
+                  <h3 className="font-medium mb-4 flex items-center gap-2">
+                    <Truck className="h-4 w-4" />
                     Shipping Address
                   </h3>
                   <div className="space-y-4">
@@ -214,7 +214,7 @@ export default function CheckoutPage() {
                       />
                     </div>
 
-                    <div className="gap-4 grid grid-cols-2">
+                    <div className="grid grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="city">City *</Label>
                         <Input
@@ -248,9 +248,9 @@ export default function CheckoutPage() {
                 </div>
 
                 {error && (
-                  <div className="flex items-center gap-2 bg-red-50 p-3 border border-red-200 rounded-md">
-                    <AlertCircle className="w-4 h-4 text-red-600" />
-                    <span className="text-red-600 text-sm">{error}</span>
+                  <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-md">
+                    <AlertCircle className="h-4 w-4 text-red-600" />
+                    <span className="text-sm text-red-600">{error}</span>
                   </div>
                 )}
 
@@ -262,12 +262,12 @@ export default function CheckoutPage() {
                 >
                   {isProcessing ? (
                     <>
-                      <div className="mr-2 border-white border-b-2 rounded-full w-4 h-4 animate-spin"></div>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                       Processing...
                     </>
                   ) : (
                     <>
-                      <Lock className="mr-2 w-4 h-4" />
+                      <Lock className="h-4 w-4 mr-2" />
                       Complete Order - {formatPrice(finalTotal)}
                     </>
                   )}
@@ -277,13 +277,13 @@ export default function CheckoutPage() {
           </Card>
 
           {/* Security Badges */}
-          <div className="flex justify-center items-center gap-6 text-gray-600 text-sm">
+          <div className="flex items-center justify-center gap-6 text-sm text-gray-600">
             <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4" />
+              <Shield className="h-4 w-4" />
               <span>SSL Secured</span>
             </div>
             <div className="flex items-center gap-2">
-              <Lock className="w-4 h-4" />
+              <Lock className="h-4 w-4" />
               <span>256-bit Encryption</span>
             </div>
           </div>
@@ -300,9 +300,9 @@ export default function CheckoutPage() {
               <div className="space-y-3">
                 {items.map((item) => (
                   <div key={`${item.product.id}-${item.variant.id}`} className="flex gap-3">
-                    <div className="relative bg-gray-100 rounded-md w-16 h-16 overflow-hidden">
+                    <div className="relative w-16 h-16 bg-gray-100 rounded-md overflow-hidden">
                       <Image
-                        src={item.image || '/web-app-manifest-512x512.png'}
+                        src={item.image || '/placeholder.svg'}
                         alt={item.name}
                         fill
                         className="object-cover"
@@ -312,10 +312,10 @@ export default function CheckoutPage() {
                     <div className="flex-1 min-w-0">
                       <h4 className="font-medium text-sm line-clamp-2">{item.name}</h4>
                       {item.variant.title !== 'Default Title' && (
-                        <p className="text-gray-600 text-xs">{item.variant.title}</p>
+                        <p className="text-xs text-gray-600">{item.variant.title}</p>
                       )}
-                      <div className="flex justify-between items-center mt-1">
-                        <span className="text-gray-600 text-sm">Qty: {item.quantity}</span>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="text-sm text-gray-600">Qty: {item.quantity}</span>
                         <span className="font-medium text-sm">
                           {formatPrice(item.variant.price * item.quantity)}
                         </span>
@@ -355,9 +355,9 @@ export default function CheckoutPage() {
               </div>
 
               {shipping > 0 && (
-                <div className="flex items-center gap-2 bg-blue-50 p-3 border border-blue-200 rounded-md">
-                  <CheckCircle className="w-4 h-4 text-blue-600" />
-                  <span className="text-blue-600 text-sm">
+                <div className="flex items-center gap-2 p-3 bg-blue-50 border border-blue-200 rounded-md">
+                  <CheckCircle className="h-4 w-4 text-blue-600" />
+                  <span className="text-sm text-blue-600">
                     Add {formatPrice(50 - totalPrice)} more for free shipping!
                   </span>
                 </div>
@@ -375,7 +375,7 @@ export default function CheckoutPage() {
                 <div className="text-2xl">💳</div>
                 <div className="text-2xl">🏦</div>
                 <div className="text-2xl">📱</div>
-                <div className="text-gray-600 text-sm">
+                <div className="text-sm text-gray-600">
                   Visa, Mastercard, American Express, PayPal, Apple Pay, Google Pay
                 </div>
               </div>

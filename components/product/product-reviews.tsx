@@ -8,15 +8,15 @@ import type { Review } from '@/lib/types'
 export function ProductReviews() {
   return (
     <div className="space-y-8">
-      <h2 className="font-bold text-2xl tracking-tight">Customer Reviews</h2>
+      <h2 className="text-2xl font-bold tracking-tight">Customer Reviews</h2>
       {CUSTOMER_REVIEWS.map((review: Review) => (
         <div key={review.id} className="flex gap-4">
           <Image
-            src={review.avatar || '/web-app-manifest-512x512.png'}
+            src={review.avatar || '/placeholder.svg'}
             alt={review.name}
             width={48}
             height={48}
-            className="rounded-full w-12 h-12 object-cover"
+            className="w-12 h-12 rounded-full object-cover"
           />
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -34,7 +34,7 @@ export function ProductReviews() {
                 ))}
               </div>
             </div>
-            <p className="text-muted-foreground text-sm">{review.comment}</p>
+            <p className="text-sm text-muted-foreground">{review.comment}</p>
           </div>
         </div>
       ))}
