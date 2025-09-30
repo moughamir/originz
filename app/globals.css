@@ -115,6 +115,10 @@
     @apply border-border;
   }
 
+  a {
+    @apply text-foreground hover:underline underline-offset-4 hover:text-primary-hover;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
@@ -165,7 +169,7 @@
 /* Component: Cookie Banner */
 @layer components {
   .cookie-consent-button {
-    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4;
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary-hover h-9 px-4;
   }
 
   .cookie-consent-decline-button {
