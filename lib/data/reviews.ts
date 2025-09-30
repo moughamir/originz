@@ -3,7 +3,7 @@ import type { Review } from "@/lib/types";
 export const CUSTOMER_REVIEWS: Review[] = [
   {
     id: 1,
-    name: "Sarah Johnson",
+    name: "Sarah Elfekri",
     rating: 5,
     comment:
       "Absolutely love my purchase! The quality exceeded my expectations and shipping was super fast.",
