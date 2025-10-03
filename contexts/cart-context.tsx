@@ -18,6 +18,7 @@ import type {
 	ClientCartState,
 } from "@/lib/types";
 import { useAuth } from "./auth-context";
+import { useErrorHandler } from "@/hooks/use-error-handler";
 import { toast } from "sonner";
 
 export type CartAction =
@@ -141,6 +142,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 	});
 	const { user } = useAuth();
 	const [cartId, setCartId] = useState<string | null>(null);
+	const { handleError, handleAsyncError } = useErrorHandler({
+		component: "CartProvider",
+		userId: user?.id,
+	});
 
 	const loadCart = useCallback(async () => {
 		if (!user) {
@@ -157,7 +162,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 			return;
 		}
 
-		try {
+		const result = await handleAsyncError(async () => {
 			const res = await fetch("/api/cart");
 			if (!res.ok) throw new Error("Failed to fetch cart");
 			let cartData = await res.json();
@@ -192,8 +197,11 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 			} else {
 				dispatch({ type: "LOAD_CART", payload: [] });
 			}
-		} catch (err) {
-			console.error("Error loading cart from API:", err);
+		}, { action: "load_cart" });
+
+		if (!result) {
+			// Error was handled by handleAsyncError
+			return;
 		}
 	}, [user]);
 
@@ -225,7 +233,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 			return;
 		}
 
-		try {
+		const result = await handleAsyncError(async () => {
 			const res = await fetch("/api/cart/items", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -237,9 +245,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 				}),
 			});
 			if (!res.ok) throw new Error("Failed to add item");
-		} catch (err) {
-			console.error("Error adding item to cart:", err);
-			toast.error("Failed to sync cart. Please try again.");
+		}, { action: "add_item_to_cart" });
+
+		if (!result) {
+			// Error was handled, revert the optimistic update
 			dispatch({
 				type: "REMOVE_ITEM",
 				payload: { productId: product.id, variantId: variant.id },
@@ -259,16 +268,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 			return;
 		}
 
-		try {
+		const result = await handleAsyncError(async () => {
 			const res = await fetch("/api/cart/items", {
 				method: "DELETE",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ cart_id: cartId, item_id: itemToRemove.id }),
 			});
 			if (!res.ok) throw new Error("Failed to remove item");
-		} catch (err) {
-			console.error("Error removing item from cart:", err);
-			toast.error("Failed to remove item. Please try again.");
+		}, { action: "remove_item_from_cart" });
+
+		if (!result) {
+			// Error was handled, revert the optimistic update
 			dispatch({
 				type: "ADD_ITEM",
 				payload: {
@@ -305,7 +315,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 			return;
 		}
 
-		try {
+		const result = await handleAsyncError(async () => {
 			const res = await fetch("/api/cart/items", {
 				method: "PUT",
 				headers: { "Content-Type": "application/json" },
@@ -316,9 +326,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 				}),
 			});
 			if (!res.ok) throw new Error("Failed to update quantity");
-		} catch (err) {
-			console.error("Error updating item quantity:", err);
-			toast.error("Failed to update quantity. Please try again.");
+		}, { action: "update_item_quantity" });
+
+		if (!result) {
+			// Error was handled, revert the optimistic update
 			dispatch({
 				type: "UPDATE_QUANTITY",
 				payload: { productId, variantId, quantity: originalQuantity },
@@ -334,16 +345,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 			return;
 		}
 
-		try {
+		const result = await handleAsyncError(async () => {
 			const res = await fetch("/api/cart/clear", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({ cart_id: cartId }),
 			});
 			if (!res.ok) throw new Error("Failed to clear cart");
-		} catch (err) {
-			console.error("Error clearing cart:", err);
-			toast.error("Failed to clear cart. Please try again.");
+		}, { action: "clear_cart" });
+
+		if (!result) {
+			// Error was handled, revert the optimistic update
 			dispatch({ type: "LOAD_CART", payload: currentItems });
 		}
 	};
