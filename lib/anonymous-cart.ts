@@ -342,37 +342,3 @@ export async function markCartAsConverted(sessionId: string = getSessionId()): P
     throw error;
   }
 }
-
-/**
- * Get cart summary for analytics
- */
-export async function getCartSummary(sessionId: string = getSessionId()): Promise<{
-  totalValue: number;
-  itemCount: number;
-  items: AnonymousCartItem[];
-} | null> {
-  const cart = await getOrCreateAnonymousCart(sessionId);
-  
-  return {
-    totalValue: cart.total_value,
-    itemCount: cart.item_count,
-    items: cart.items || [],
-  };
-}
-
-/**
- * Migrate anonymous cart to authenticated user (when user logs in)
- */
-export async function migrateAnonymousCartToUser(
-  userId: string,
-  sessionId: string = getSessionId()
-): Promise<void> {
-  // This would integrate with your existing authenticated cart system
-  // For now, we'll just mark the anonymous cart as converted
-  await markCartAsConverted(sessionId);
-  
-  // Clear the session ID from localStorage since user is now authenticated
-  if (typeof window !== "undefined") {
-    localStorage.removeItem("anonymous_session_id");
-  }
-}

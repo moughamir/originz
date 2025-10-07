@@ -118,7 +118,7 @@ const AboutBlock = ({
                 <p className="text-muted-foreground">{breakout.description}</p>
               </div>
               <Button variant="outline" className="mr-auto" asChild>
-                <a href={breakout.buttonUrl} target="_blank">
+                <a href={breakout.buttonUrl} target="_blank" rel="noreferrer">
                   {breakout.buttonText}
                 </a>
               </Button>

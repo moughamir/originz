@@ -3,8 +3,8 @@
 import React from "react";
 
 // This type allows us to pass components and their props together.
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type ProviderWithProps<P = {}> = [React.ComponentType<P & { children: React.ReactNode }>, P];
+ 
+type ProviderWithProps<P = object> = [React.ComponentType<P & { children: React.ReactNode }>, P];
 
 /**
  * Composes multiple React providers into a single, nested component structure.

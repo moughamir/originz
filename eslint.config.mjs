@@ -1,65 +1,88 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import globals from "globals";
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import nextPlugin from "@next/eslint-plugin-next";
+import importPlugin from "eslint-plugin-import";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [{
-  ignores: ["node_modules/**", ".next/**", "out/**", "build/**", "next-env.d.ts"]
-}, ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"), {
-  ignores: [
-    "node_modules/**",
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-  ],
-  rules: {
-    "react/no-danger": "error",
-    "react/no-danger-with-children": "error",
-    // Prevent importing server-side modules in client components
-    // This prevents the critical production error where server-side environment
-    // variables are accessed on the client. See PRODUCTION_ERROR_FIX_V2.md
-    "no-restricted-imports": ["error", {
-      patterns: [{
-        group: ["**/lib/api/*", "**/lib/utils/*-server-utils*"],
-        message: "Server-side modules cannot be imported in client components. Use API routes (e.g., /api/products) instead. See docs/MIGRATION_GUIDE.md for details."
-      }]
-    }],
+export default tseslint.config(
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  {
+    ignores: ["node_modules/**", ".next/**", "out/**", "build/**", "dist/**", "next-env.d.ts", "public/**", "postcss.config.mjs", "tailwind.config.js", "eslint.config.mjs"],
   },
-}, {
-  // Allow server-side files to import server-side modules
-  // This includes:
-  // - API routes (app/api/**/route.ts)
-  // - Route Handlers (app/**/route.ts) - sitemaps, feeds, etc.
-  // - Server-side utilities and data fetchers
-  files: [
-    "app/api/**/*.ts",
-    "app/api/**/*.tsx",
-    "app/**/route.ts",        // Route Handlers (sitemaps, feeds, etc.)
-    "app/**/route.tsx",       // Route Handlers (JSX)
-    "lib/api/**/*.ts",
-    "lib/utils/*-server-utils.ts",
-    "lib/data/**/*.ts",
-  ],
-  rules: {
-    "no-restricted-imports": "off",
+  {
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+        project: ["./tsconfig.json"], 
+      },
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
   },
-}, {
-  files: [
-    "components/common/product-schema.tsx",
-    "components/common/website-schema.tsx",
-    "components/common/safe-html.tsx",
-  ],
-  rules: {
-    "react/no-danger": "off",
-    "react/no-danger-with-children": "off",
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    plugins: {
+      react,
+      "react-hooks": reactHooks,
+      "@next/next": nextPlugin,
+      import: importPlugin,
+    },
+    rules: {
+      ...react.configs.recommended.rules,
+      ...reactHooks.configs.recommended.rules,
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs["core-web-vitals"].rules,
+      "import/no-cycle": ["error", { maxDepth: Infinity }],
+      "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+      "react/no-danger": "error",
+      "react/no-danger-with-children": "error",
+      "no-restricted-imports": ["error", {
+        patterns: [{
+          group: ["**/lib/api/*", "**/lib/utils/*-server-utils*"],
+          message: "Server-side modules cannot be imported in client components. Use API routes (e.g., /api/products) instead. See docs/MIGRATION_GUIDE.md for details."
+        }]
+      }],
+    },
   },
-}];
-
-export default eslintConfig;
+  {
+    files: [
+      "app/api/**/*.ts",
+      "app/api/**/*.tsx",
+      "app/**/route.ts",
+      "app/**/route.tsx",
+      "lib/api/**/*.ts",
+      "lib/utils/*-server-utils.ts",
+      "lib/data/**/*.ts",
+    ],
+    rules: {
+      "no-restricted-imports": "off",
+    },
+  },
+  {
+    files: [
+      "components/common/product-schema.tsx",
+      "components/common/website-schema.tsx",
+      "components/common/safe-html.tsx",
+    ],
+    rules: {
+      "react/no-danger": "off",
+      "react/no-danger-with-children": "off",
+    },
+  }
+);

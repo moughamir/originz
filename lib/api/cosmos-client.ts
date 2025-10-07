@@ -16,7 +16,7 @@ import type { ApiProduct } from "@/lib/types";
  * Get server-side environment variables
  * Lazy-loaded to prevent client-side access
  */
-function getServerConfig() {
+async function getServerConfig() {
   // Dynamic import to ensure this only runs on server
   if (typeof window !== "undefined") {
     throw new Error(
@@ -26,8 +26,7 @@ function getServerConfig() {
   }
 
   // Import env only when needed (server-side)
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { env } = require("@/lib/env-validation");
+  const { env } = await import("@/lib/env-validation");
 
   return {
         baseUrl: env.NEXT_PUBLIC_COSMOS_API_BASE_URL,
@@ -74,8 +73,8 @@ export interface PaginatedResponse<T> {
 /**
  * Build full API URL
  */
-function buildUrl(endpoint: string): string {
-  const { baseUrl } = getServerConfig();
+async function buildUrl(endpoint: string): Promise<string> {
+  const { baseUrl } = await getServerConfig();
   const base = baseUrl.replace(/\/$/, "");
   const path = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
   return `${base}/cosmos${path}`;
@@ -84,8 +83,8 @@ function buildUrl(endpoint: string): string {
 /**
  * Build request headers
  */
-function buildHeaders(format: ResponseFormat = "json"): HeadersInit {
-  const { apiKey } = getServerConfig();
+async function buildHeaders(format: ResponseFormat = "json"): Promise<HeadersInit> {
+  const { apiKey } = await getServerConfig();
   const headers: HeadersInit = {
     "X-API-Key": apiKey,
     "User-Agent": "OriGenZ/1.0",
@@ -126,13 +125,13 @@ async function cosmosRequest<T>(
   options: CosmosRequestOptions = {}
 ): Promise<T> {
   const { format = "json", cache = "default", revalidate } = options;
-  const url = buildUrl(endpoint);
+  const url = await buildUrl(endpoint);
 
   logger.debug("COSMOS API request", { endpoint, format });
 
   try {
     const fetchOptions: RequestInit = {
-      headers: buildHeaders(format),
+      headers: await buildHeaders(format),
       cache,
       ...(revalidate !== undefined && { next: { revalidate } }),
     };
@@ -245,8 +244,8 @@ export async function getCollection(
 /**
  * Get image URL through CDN proxy
  */
-export function getImageUrl(path: string): string {
-  const { baseUrl } = getServerConfig();
+export async function getImageUrl(path: string): Promise<string> {
+  const { baseUrl } = await getServerConfig();
   const base = baseUrl.replace(/\/$/, "");
   const imagePath = path.startsWith("/") ? path : `/${path}`;
   return `${base}/cosmos/cdn${imagePath}`;

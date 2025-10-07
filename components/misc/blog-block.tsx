@@ -89,7 +89,7 @@ const BlogBlock = ({
             {description}
           </p>
           <Button variant="link" className="w-full sm:w-auto" asChild>
-            <a href={buttonUrl} target="_blank">
+            <a href={buttonUrl} target="_blank" rel="noreferrer">
               {buttonText}
               <ArrowRight className="ml-2 size-4" />
             </a>
@@ -105,7 +105,7 @@ const BlogBlock = ({
                 <a
                   href={post.url}
                   target="_blank"
-                  className="transition-opacity duration-200 fade-in hover:opacity-70"
+                  className="transition-opacity duration-200 fade-in hover:opacity-70" rel="noreferrer"
                 >
                   <Image
                     src={post.image}
@@ -116,7 +116,7 @@ const BlogBlock = ({
               </div>
               <CardHeader>
                 <h3 className="text-lg font-semibold hover:underline md:text-xl">
-                  <a href={post.url} target="_blank">
+                  <a href={post.url} target="_blank" rel="noreferrer">
                     {post.title}
                   </a>
                 </h3>
@@ -128,7 +128,7 @@ const BlogBlock = ({
                 <a
                   href={post.url}
                   target="_blank"
-                  className="flex items-center text-foreground hover:underline"
+                  className="flex items-center text-foreground hover:underline" rel="noreferrer"
                 >
                   Read more
                   <ArrowRight className="ml-2 size-4" />
