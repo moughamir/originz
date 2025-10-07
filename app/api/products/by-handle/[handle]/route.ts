@@ -4,7 +4,8 @@ import { getProductByHandle } from "@/lib/data/products";
 export async function GET(
 	request: NextRequest,
 	 
-	context: { params: { handle: string } },
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	context: any,
 ) {
 	try {
 		const { handle } = (await context.params);
