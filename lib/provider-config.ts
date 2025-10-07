@@ -1,5 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export type ProviderConfig<P = {}> = [
+ 
+export type ProviderConfig<P = object> = [
   React.ComponentType<P & { children: React.ReactNode }>,
   P
 ];

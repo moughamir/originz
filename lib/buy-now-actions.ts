@@ -345,7 +345,7 @@ export async function checkoutCartAction(
     };
 
     // 3. Call Shopify REST API
-    let invoiceUrl: string | undefined;
+
     const shop = process.env.SHOPIFY_SHOP;
     const token = process.env.SHOPIFY_ACCESS_TOKEN;
 
@@ -374,7 +374,7 @@ export async function checkoutCartAction(
       try {
         const errorData = JSON.parse(responseText);
         errorMessage = errorData.errors ? JSON.stringify(errorData.errors) : errorMessage;
-      } catch (e) {
+      } catch {
         errorMessage = `API returned non-JSON response (${response.status}): ${responseText.substring(0, 200)}`;
       }
        logError(new Error(errorMessage), {
@@ -389,7 +389,7 @@ export async function checkoutCartAction(
     let responseData;
     try {
       responseData = JSON.parse(responseText);
-    } catch (parseError) {
+    } catch {
        logError(new Error("Failed to parse success response from Shopify"), {
         context: "checkoutCartAction - JSON Parse Error",
         itemCount: cartItems.length,
@@ -400,7 +400,7 @@ export async function checkoutCartAction(
       );
     }
 
-    invoiceUrl = responseData.draft_order?.invoice_url;
+    const invoiceUrl = responseData.draft_order?.invoice_url;
 
     if (!invoiceUrl) {
       logError(new Error("No invoice URL in Shopify response"), {

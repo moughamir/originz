@@ -10,7 +10,7 @@
 ---[x] NAME:P1.7 Stakeholder review & approvals DESCRIPTION:Walkthrough plan, capture decisions/clarifications, and lock scope for Phase 2.
 --[ ] NAME:Phase 2: Code Cleanup & Optimization (HIGH) DESCRIPTION:Remove unused/imports/files, consolidate duplicated logic, simplify complex components while preserving behavior, and enforce DRY/KISS/YAGNI/SOLID.
 ---[x] NAME:P2.1 Lint/type-check baseline and rule alignment DESCRIPTION:Run eslint and tsc; align rules (without adding new deps). Fix obvious issues; document exceptions requiring code changes.
----[/] NAME:P2.2 Remove unused imports, variables, functions, components, and files DESCRIPTION:Use eslint autofix + manual review to prune dead code safely; keep a deletion log.
+---[x] NAME:P2.2 Remove unused imports, variables, functions, components, and files DESCRIPTION:Use eslint autofix + manual review to prune dead code safely; keep a deletion log.
 ---[ ] NAME:P2.3 Consolidate duplicated logic into utilities/hooks DESCRIPTION:Extract shared helpers into lib/utils/* and reusable hooks; update callsites minimally.
 ---[ ] NAME:P2.4 Simplify overly complex components DESCRIPTION:Split large components into smaller presentational/container pieces; improve SRP and testability.
 ---[ ] NAME:P2.5 Validate with type checks and smoke build DESCRIPTION:Ensure next build passes; run type checks; no functional changes expected.

@@ -1,61 +1,63 @@
-import path from "path";
-import { fileURLToPath } from "url";
+import globals from "globals";
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
-import nextConfig from "eslint-config-next";
+import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
+import nextPlugin from "@next/eslint-plugin-next";
+import importPlugin from "eslint-plugin-import";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-export default [
-  {
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-    ],
-  },
+export default tseslint.config(
   js.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked.map((config) => ({
-    ...config,
-    languageOptions: {
-      ...config.languageOptions,
-      parserOptions: {
-        ...config.languageOptions?.parserOptions,
-        project: ["./tsconfig.json"],
-        tsconfigRootDir: __dirname,
-      },
-    },
-  })),
-  ...nextConfig,
+  ...tseslint.configs.recommended,
+  {
+    ignores: ["node_modules/**", ".next/**", "out/**", "build/**", "dist/**", "next-env.d.ts", "public/**", "postcss.config.mjs", "tailwind.config.js", "eslint.config.mjs"],
+  },
   {
     languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+      parser: tseslint.parser,
       parserOptions: {
-        project: ["./tsconfig.json"],
-        tsconfigRootDir: __dirname,
+        ecmaFeatures: {
+          jsx: true,
+        },
+        project: ["./tsconfig.json"], 
+      },
+    },
+    settings: {
+      react: {
+        version: "detect",
       },
     },
   },
-  reactHooks.configs.recommended,
   {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    plugins: {
+      react,
+      "react-hooks": reactHooks,
+      "@next/next": nextPlugin,
+      import: importPlugin,
+    },
     rules: {
+      ...react.configs.recommended.rules,
+      ...reactHooks.configs.recommended.rules,
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs["core-web-vitals"].rules,
+      "import/no-cycle": ["error", { maxDepth: Infinity }],
+      "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
       "react/no-danger": "error",
       "react/no-danger-with-children": "error",
-      "no-restricted-imports": [
-        "error",
-        {
-          patterns: [
-            {
-              group: ["**/lib/api/*", "**/lib/utils/*-server-utils*"],
-              message:
-                "Server-side modules cannot be imported in client components. Use API routes (e.g., /api/products) instead. See docs/MIGRATION_GUIDE.md for details.",
-            },
-          ],
-        },
-      ],
+      "no-restricted-imports": ["error", {
+        patterns: [{
+          group: ["**/lib/api/*", "**/lib/utils/*-server-utils*"],
+          message: "Server-side modules cannot be imported in client components. Use API routes (e.g., /api/products) instead. See docs/MIGRATION_GUIDE.md for details."
+        }]
+      }],
     },
   },
   {
@@ -82,5 +84,5 @@ export default [
       "react/no-danger": "off",
       "react/no-danger-with-children": "off",
     },
-  },
-];
+  }
+);
