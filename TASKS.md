@@ -12,7 +12,7 @@
 ---[x] NAME:P2.1 Lint/type-check baseline and rule alignment DESCRIPTION:Run eslint and tsc; align rules (without adding new deps). Fix obvious issues; document exceptions requiring code changes.
 ---[x] NAME:P2.2 Remove unused imports, variables, functions, components, and files DESCRIPTION:Use eslint autofix + manual review to prune dead code safely; keep a deletion log.
 ---[x] NAME:P2.3 Consolidate duplicated logic into utilities/hooks DESCRIPTION:Extract shared helpers into lib/utils/* and reusable hooks; update callsites minimally.
----[ ] NAME:P2.4 Simplify overly complex components DESCRIPTION:Split large components into smaller presentational/container pieces; improve SRP and testability.
+---[/] NAME:P2.4 Simplify overly complex components DESCRIPTION:Split large components into smaller presentational/container pieces; improve SRP and testability.
 ---[ ] NAME:P2.5 Validate with type checks and smoke build DESCRIPTION:Ensure next build passes; run type checks; no functional changes expected.
 ---[ ] NAME:P2.6 Document cleanup changes and risks DESCRIPTION:Summarize what changed, why, and any follow-ups.
 --[ ] NAME:Phase 3: Component Organization – Preserve shadcn/ui, migrate to components/blocks (MEDIUM) DESCRIPTION:Keep components/ui untouched. Move other custom components to components/blocks organized by feature/use-case. Update imports safely.
