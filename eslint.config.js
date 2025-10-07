@@ -6,7 +6,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import nextPlugin from "@next/eslint-plugin-next";
 import importPlugin from "eslint-plugin-import";
 
-export default tseslint.config(
+export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -85,4 +85,4 @@ export default tseslint.config(
       "react/no-danger-with-children": "off",
     },
   }
-);
+];

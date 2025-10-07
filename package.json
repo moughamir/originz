@@ -2,6 +2,7 @@
   "name": "originz",
   "version": "0.1.0a",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "dev:inspect": "NODE_OPTIONS='--inspect' next dev --turbopack",
