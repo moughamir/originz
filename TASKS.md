@@ -8,13 +8,13 @@
 ---[x] NAME:P1.5 Identify DRY/KISS/YAGNI/SOLID violations DESCRIPTION:Produce a list of concrete violations with file paths and suggested remedies, prioritized by impact and effort.
 ---[x] NAME:P1.6 Produce Architecture Review + Refactor Plan for approval DESCRIPTION:Write an Architecture Review and detailed Refactor Plan (sequence, risks, codemods, verification). Share for approval before changes.
 ---[x] NAME:P1.7 Stakeholder review & approvals DESCRIPTION:Walkthrough plan, capture decisions/clarifications, and lock scope for Phase 2.
---[ ] NAME:Phase 2: Code Cleanup & Optimization (HIGH) DESCRIPTION:Remove unused/imports/files, consolidate duplicated logic, simplify complex components while preserving behavior, and enforce DRY/KISS/YAGNI/SOLID.
+--[x] NAME:Phase 2: Code Cleanup & Optimization (HIGH) DESCRIPTION:Remove unused/imports/files, consolidate duplicated logic, simplify complex components while preserving behavior, and enforce DRY/KISS/YAGNI/SOLID.
 ---[x] NAME:P2.1 Lint/type-check baseline and rule alignment DESCRIPTION:Run eslint and tsc; align rules (without adding new deps). Fix obvious issues; document exceptions requiring code changes.
 ---[x] NAME:P2.2 Remove unused imports, variables, functions, components, and files DESCRIPTION:Use eslint autofix + manual review to prune dead code safely; keep a deletion log.
 ---[x] NAME:P2.3 Consolidate duplicated logic into utilities/hooks DESCRIPTION:Extract shared helpers into lib/utils/* and reusable hooks; update callsites minimally.
----[/] NAME:P2.4 Simplify overly complex components DESCRIPTION:Split large components into smaller presentational/container pieces; improve SRP and testability.
----[ ] NAME:P2.5 Validate with type checks and smoke build DESCRIPTION:Ensure next build passes; run type checks; no functional changes expected.
----[ ] NAME:P2.6 Document cleanup changes and risks DESCRIPTION:Summarize what changed, why, and any follow-ups.
+---[x] NAME:P2.4 Simplify overly complex components DESCRIPTION:Split large components into smaller presentational/container pieces; improve SRP and testability.
+---[x] NAME:P2.5 Validate with type checks and smoke build DESCRIPTION:Ensure next build passes; run type checks; no functional changes expected.
+---[x] NAME:P2.6 Document cleanup changes and risks DESCRIPTION:Summarize what changed, why, and any follow-ups.
 --[ ] NAME:Phase 3: Component Organization – Preserve shadcn/ui, migrate to components/blocks (MEDIUM) DESCRIPTION:Keep components/ui untouched. Move other custom components to components/blocks organized by feature/use-case. Update imports safely.
 ---[ ] NAME:P3.1 Create components/blocks structure and feature groups DESCRIPTION:Create components/blocks and decide feature groupings (account, admin, cart, checkout, product, layout, sections, pwa, chat, common, icons, examples).
 ---[ ] NAME:P3.2 Plan and execute component moves (exclude components/ui) DESCRIPTION:Move custom components into blocks groups, preserving index barrels and relative imports where possible.
