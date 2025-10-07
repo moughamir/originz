@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/dialog";
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
-import { CountUp } from "@/components/common/count-up";
 import { SocialProofItem } from "./social-proof-item";
 
 export function Hero() {

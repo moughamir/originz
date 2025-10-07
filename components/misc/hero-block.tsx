@@ -1,8 +1,8 @@
-import { ArrowDownRight, Star } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
 
 import Image from "next/image";
 
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Reviews } from "./reviews";
 import { Button } from "@/components/ui/button";
 
 interface Hero3Props {
@@ -78,31 +78,7 @@ const Hero3 = ({
           <p className="text-muted-foreground mb-8 max-w-xl lg:text-xl">
             {description}
           </p>
-          <div className="mb-12 flex w-fit flex-col items-center gap-4 sm:flex-row">
-            <span className="inline-flex items-center -space-x-4">
-              {reviews.avatars.map((avatar, index) => (
-                <Avatar key={index} className="size-12 border">
-                  <AvatarImage src={avatar.src} alt={avatar.alt} />
-                </Avatar>
-              ))}
-            </span>
-            <div>
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, index) => (
-                  <Star
-                    key={index}
-                    className="size-5 fill-yellow-400 text-yellow-400"
-                  />
-                ))}
-                <span className="mr-1 font-semibold">
-                  {reviews.rating?.toFixed(1)}
-                </span>
-              </div>
-              <p className="text-muted-foreground text-left font-medium">
-                from {reviews.count}+ reviews
-              </p>
-            </div>
-          </div>
+          <Reviews reviews={reviews} avatarClassName="size-12" />
           <div className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start">
             {buttons.primary && (
               <Button asChild className="w-full sm:w-auto">

@@ -1,7 +1,6 @@
-import { Star } from "lucide-react";
 import React from "react";
 
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Reviews } from "./reviews";
 import { Button } from "@/components/ui/button";
 
 interface Hero7Props {
@@ -67,31 +66,7 @@ const Hero7 = ({
         <Button asChild size="lg" className="mt-10">
           <a href={button.url}>{button.text}</a>
         </Button>
-        <div className="mx-auto mt-10 flex w-fit flex-col items-center gap-4 sm:flex-row">
-          <span className="mx-4 inline-flex items-center -space-x-4">
-            {reviews.avatars.map((avatar, index) => (
-              <Avatar key={index} className="size-14 border">
-                <AvatarImage src={avatar.src} alt={avatar.alt} />
-              </Avatar>
-            ))}
-          </span>
-          <div>
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, index) => (
-                <Star
-                  key={index}
-                  className="size-5 fill-yellow-400 text-yellow-400"
-                />
-              ))}
-              <span className="mr-1 font-semibold">
-                {reviews.rating?.toFixed(1)}
-              </span>
-            </div>
-            <p className="text-muted-foreground text-left font-medium">
-              from {reviews.count}+ reviews
-            </p>
-          </div>
-        </div>
+        <Reviews reviews={reviews} avatarClassName="size-14" />
       </div>
     </section>
   );

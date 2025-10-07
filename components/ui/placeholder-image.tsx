@@ -6,8 +6,6 @@ import { cn } from "@/lib/utils";
 import { getErrorPlaceholder } from "@/lib/placeholder";
 import type { BaseImageProps } from "@/lib/types/image";
 
-interface PlaceholderImageProps extends BaseImageProps {}
-
 /**
  * Image component that properly handles placeholder images
  * Automatically uses unoptimized for SVG placeholders
@@ -24,7 +22,7 @@ export function PlaceholderImage({
 	priority = false,
 	quality = 75,
 	onError,
-}: PlaceholderImageProps) {
+}: BaseImageProps) {
 	const [hasError, setHasError] = useState(false);
 
 	// Determine if the source is a placeholder (SVG)
