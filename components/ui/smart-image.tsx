@@ -4,19 +4,9 @@ import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { getErrorPlaceholder } from "@/lib/placeholder";
+import type { BaseImageProps } from "@/lib/types/image";
 
-interface SmartImageProps {
-	src?: string | null;
-	alt: string;
-	fallbackText?: string;
-	width?: number;
-	height?: number;
-	className?: string;
-	fill?: boolean;
-	sizes?: string;
-	priority?: boolean;
-	quality?: number;
-	onError?: () => void;
+interface SmartImageProps extends BaseImageProps {
 	loading?: "eager" | "lazy";
 	objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down";
 	blurDataURL?: string;
