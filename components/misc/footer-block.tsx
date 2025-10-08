@@ -1,4 +1,4 @@
-import { Logo, LogoImage, LogoText } from "@/components/misc/logo";
+import { Logo, LogoImage, LogoText } from "@blocks/misc/logo";
 
 interface MenuItem {
   title: string;

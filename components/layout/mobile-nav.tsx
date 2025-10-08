@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sheet";
 import { NAVIGATION_ITEMS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { Logo } from "@/components/common/logo";
+import { Logo } from "@blocks/common/logo";
 
 export function MobileNav() {
 	const [isOpen, setIsOpen] = useState(false);
