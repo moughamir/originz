@@ -1,3 +1,38 @@
+import { ApiProductVariant, ApiProductOption, ApiProduct } from "@/lib/types";
+import {
+  formatPriceForMerchant,
+  normalizeProductType,
+  formatWeight,
+  isLikelyGTIN,
+  getGoogleCategory,
+} from "../product-utils";
+import {
+  buildNamespacedTag,
+  buildRssTag,
+  escapeXml,
+  stripHtml,
+} from "../xml-utils";
+
+import {
+  ApiProductWithRaw,
+  FeedGenerationError,
+  FlexibleApiProductVariant,
+  MerchantFeedItemData,
+  MerchantFeedType,
+  ProcessProductVariantsResult,
+  VariantPricing,
+} from "./types";
+
+export function getXmlNamespace(feedType: MerchantFeedType): string {
+  // Both Google and Bing use the same 'g' namespace
+  return 'xmlns:g="http://base.google.com/ns/1.0"';
+}
+
+export function getNamespacePrefix(feedType: MerchantFeedType): string {
+  // Both Google and Bing use 'g' as well
+  return "g";
+}
+
 /**
  * Merchant Feed Utilities
  *
@@ -9,20 +44,6 @@
  * @see https://support.google.com/merchants/answer/7052112
  * @see https://help.ads.microsoft.com/apex/index/3/en/51084
  */
-
-import type {
-  ApiProduct,
-  ApiProductVariant,
-  ApiProductOption,
-} from "@/lib/types";
-import { escapeXml, stripHtml } from "./xml-utils";
-import {
-  formatPriceForMerchant,
-  formatWeight,
-  isLikelyGTIN,
-  normalizeProductType,
-  getGoogleCategory,
-} from "./product-utils";
 
 /**
  * Extract option value by name from variant
@@ -67,16 +88,6 @@ export function getVariantOptionValue(
     default:
       return "";
   }
-}
-
-/**
- * Variant pricing information for merchant feeds
- */
-export interface VariantPricing {
-  /** The regular/base price in merchant feed format (e.g., "29.99 USD") */
-  basePrice: string;
-  /** The sale price if on sale, null otherwise */
-  salePrice: string | null;
 }
 
 /**
@@ -140,10 +151,6 @@ export function calculateVariantPricing(
  * // Returns: "https://cdn.example.com/variant-image.jpg"
  * ```
  */
-type FlexibleApiProductVariant = Omit<ApiProductVariant, 'featured_image'> & {
-  featured_image?: string | { src: string };
-};
-
 export function getVariantImageUrl(
   variant: ApiProductVariant,
   product: ApiProduct,
@@ -152,10 +159,10 @@ export function getVariantImageUrl(
   const flexVariant = variant as FlexibleApiProductVariant;
   const featuredImage = flexVariant.featured_image;
 
-  if (featuredImage && typeof featuredImage === 'object' && featuredImage.src) {
+  if (featuredImage && typeof featuredImage === "object" && featuredImage.src) {
     return featuredImage.src;
   }
-  if (typeof featuredImage === 'string') {
+  if (typeof featuredImage === "string") {
     return featuredImage;
   }
   return product.images?.[0]?.src || fallbackUrl;
@@ -164,25 +171,6 @@ export function getVariantImageUrl(
 /**
  * Build merchant feed item data
  */
-export interface MerchantFeedItemData {
-  id: string;
-  title: string;
-  description: string;
-  link: string;
-  imageLink: string;
-  availability: "in stock" | "out of stock";
-  price: string;
-  salePrice: string | null;
-  brand: string;
-  condition: "new" | "used" | "refurbished";
-  productType: string;
-  googleProductCategory: string;
-  mpn: string;
-  gtin: string;
-  color: string;
-  size: string;
-  shippingWeight: string;
-}
 
 export function buildMerchantFeedItemData(
   product: ApiProduct,
@@ -224,10 +212,33 @@ export function buildMerchantFeedItemData(
 }
 
 /**
+ * Generate complete merchant feed XML
+ */
+export function generateMerchantFeedXml(
+  items: string[],
+  siteName: string,
+  siteUrl: string,
+  feedDescription: string,
+  feedType: MerchantFeedType
+): string {
+  const namespace = getXmlNamespace(feedType);
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" ${namespace}>
+  <channel>
+    <title>${escapeXml(siteName)} - Product Feed</title>
+    <link>${escapeXml(siteUrl)}</link>
+    <description>${escapeXml(feedDescription)}</description>
+    ${items.join("")}
+  </channel>
+</rss>`;
+}
+
+/**
  * Generate XML item for Google/Bing Merchant feed
  */
 export function generateMerchantFeedXmlItem(
   data: MerchantFeedItemData,
+  ns: string,
   shippingConfig?: {
     country: string;
     service: string;
@@ -240,49 +251,45 @@ export function generateMerchantFeedXmlItem(
     price: "9.99 USD",
   };
 
+  const itemParts = [
+    buildRssTag("title", data.title, true),
+    buildRssTag("link", data.link),
+    buildRssTag("description", data.description, true),
+    buildNamespacedTag(ns, "id", data.id),
+    buildNamespacedTag(ns, "image_link", data.imageLink),
+    buildNamespacedTag(ns, "availability", data.availability),
+    buildNamespacedTag(ns, "price", data.price),
+    buildNamespacedTag(ns, "sale_price", data.salePrice),
+    buildNamespacedTag(ns, "brand", data.brand, true),
+    buildNamespacedTag(ns, "condition", data.condition),
+    buildNamespacedTag(ns, "product_type", data.productType, true),
+    buildNamespacedTag(
+      ns,
+      "google_product_category",
+      data.googleProductCategory,
+      true
+    ),
+    buildNamespacedTag(ns, "mpn", data.mpn, true),
+    buildNamespacedTag(ns, "gtin", data.gtin),
+    buildNamespacedTag(ns, "color", data.color),
+    buildNamespacedTag(ns, "size", data.size),
+    buildNamespacedTag(ns, "shipping_weight", data.shippingWeight),
+    `<${ns}:shipping>`,
+    `  <${ns}:country>${defaultShipping.country}</${ns}:country>`,
+    `  <${ns}:service>${defaultShipping.service}</${ns}:service>`,
+    `  <${ns}:price>${defaultShipping.price}</${ns}:price>`,
+    `</${ns}:shipping>`,
+  ];
+
   return `
     <item>
-      <title><![CDATA[${data.title}]]></title>
-      <link>${escapeXml(data.link)}</link>
-      <description><![CDATA[${data.description}]]></description>
-      <g:id>${escapeXml(data.id)}</g:id>
-      <g:title><![CDATA[${data.title}]]></g:title>
-      <g:description><![CDATA[${data.description}]]></g:description>
-      <g:link>${escapeXml(data.link)}</g:link>
-      <g:image_link>${escapeXml(data.imageLink)}</g:image_link>
-      <g:availability>${data.availability}</g:availability>
-      <g:price>${escapeXml(data.price)}</g:price>
-      ${
-        data.salePrice
-          ? `<g:sale_price>${escapeXml(data.salePrice)}</g:sale_price>`
-          : ""
-      }
-      <g:brand>${escapeXml(data.brand)}</g:brand>
-      <g:condition>${data.condition}</g:condition>
-      <g:product_type>${escapeXml(data.productType)}</g:product_type>
-      <g:google_product_category>${escapeXml(
-        data.googleProductCategory
-      )}</g:google_product_category>
-      <g:mpn>${escapeXml(data.mpn)}</g:mpn>
-      ${data.gtin ? `<g:gtin>${escapeXml(data.gtin)}</g:gtin>` : ""}
-      ${data.color ? `<g:color>${escapeXml(data.color)}</g:color>` : ""}
-      ${data.size ? `<g:size>${escapeXml(data.size)}</g:size>` : ""}
-      <g:shipping_weight>${escapeXml(data.shippingWeight)}</g:shipping_weight>
-      <g:shipping>
-        <g:country>${defaultShipping.country}</g:country>
-        <g:service>${defaultShipping.service}</g:service>
-        <g:price>${defaultShipping.price}</g:price>
-      </g:shipping>
+      ${itemParts.filter(Boolean).join("\n      ")}
     </item>`;
 }
 
 /**
  * Parse product with raw_json field
  */
-export interface ApiProductWithRaw extends ApiProduct {
-  raw_json?: string;
-}
-
 export function parseProductData(
   product: ApiProduct | ApiProductWithRaw
 ): ApiProduct {
@@ -293,26 +300,17 @@ export function parseProductData(
 /**
  * Process all variants for a product and generate feed items
  */
-export interface FeedGenerationError {
-  productId: string | number;
-  variantId?: string | number;
-  message: string;
-}
-
-export interface ProcessProductVariantsResult {
-  items: string[];
-  errors: FeedGenerationError[];
-}
-
 export function processProductVariants(
   product: ApiProduct | ApiProductWithRaw,
   siteUrl: string,
   siteName: string,
-  shippingConfig: {
-    country: string;
-    service: string;
-    price: string;
-  } | undefined,
+  shippingConfig:
+    | {
+        country: string;
+        service: string;
+        price: string;
+      }
+    | undefined,
   generateItemXml: (data: MerchantFeedItemData) => string
 ): ProcessProductVariantsResult {
   const items: string[] = [];
@@ -364,21 +362,29 @@ export function processProductVariants(
 }
 
 /**
- * Generate complete merchant feed XML
+ * Generate a sitemap index file for paginated feeds.
+ * This is used to submit multiple feed files to Google/Bing Merchant Center.
+ * @param siteUrl - The base URL of the site.
+ * @param feedPath - The base path for the feed files (e.g., "api/feed/google-merchant").
+ * @param totalPages - The total number of paginated feed files.
+ * @returns The XML content for the feed index file.
  */
-export function generateMerchantFeedXml(
-  items: string[],
-  siteName: string,
+export function generateFeedIndexXml(
   siteUrl: string,
-  feedDescription: string
+  feedPath: string,
+  totalPages: number
 ): string {
+  const sitemaps = Array.from({ length: totalPages }, (_, i) => {
+    const page = i + 1;
+    return `
+  <sitemap>
+    <loc>${escapeXml(`${siteUrl}/${feedPath}/pages/${page}`)}</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+  </sitemap>`;
+  }).join("");
+
   return `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
-  <channel>
-    <title>${escapeXml(siteName)} - Product Feed</title>
-    <link>${escapeXml(siteUrl)}</link>
-    <description>${escapeXml(feedDescription)}</description>
-    ${items.join("")}
-  </channel>
-</rss>`;
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemaps}
+</sitemapindex>`;
 }

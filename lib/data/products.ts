@@ -174,3 +174,18 @@ export async function getCollectionByHandle(
     return [];
   }
 }
+
+/**
+ * Get total number of products
+ */
+export async function getProductsCount(): Promise<number> {
+  logger.debug("Fetching products count");
+  try {
+    // Fetching with limit 1 is efficient to get the total count from meta.
+    const response = await cosmosClient.getProducts({ limit: 1, page: 1 });
+    return response.meta?.total || 0;
+  } catch (error) {
+    logger.error("Error fetching products count", error);
+    return 0;
+  }
+}
