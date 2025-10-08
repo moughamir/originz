@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
-import { CountUp } from "@/components/common/count-up";
+import { SocialProofItem } from "./social-proof-item";
 
 export function Hero() {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -93,7 +93,7 @@ export function Hero() {
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       referrerPolicy="strict-origin-when-cross-origin"
                       allowFullScreen
-                      allowTransparency
+
                       loading="lazy"
                       seamless
                     ></iframe>
@@ -121,72 +121,15 @@ export function Hero() {
                 },
               }}
             >
-              <motion.li
-                className="text-center"
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-              >
-                <motion.div
-                  className="text-2xl font-semibold"
-                  variants={{
-                    hidden: { opacity: 0, scale: 0.95 },
-                    visible: { opacity: 1, scale: 1 },
-                  }}
-                >
-                  <CountUp end={10} suffix="K+" />
-                </motion.div>
-                <div className="text-sm text-muted-foreground">
-                  Happy Customers
-                </div>
-              </motion.li>
+              <SocialProofItem end={10} suffix="K+" label="Happy Customers" />
 
               <div className="h-8 w-px bg-border" />
 
-              <motion.li
-                className="text-center"
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-              >
-                <motion.div
-                  className="text-2xl font-semibold"
-                  variants={{
-                    hidden: { opacity: 0, scale: 0.95 },
-                    visible: { opacity: 1, scale: 1 },
-                  }}
-                >
-                  <CountUp end={4.7} decimals={1} />
-                </motion.div>
-                <div className="text-sm text-muted-foreground">
-                  Average Rating
-                </div>
-              </motion.li>
+              <SocialProofItem end={4.7} decimals={1} label="Average Rating" />
 
               <div className="h-8 w-px bg-border" />
 
-              <motion.li
-                className="text-center"
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-              >
-                <motion.div
-                  className="text-2xl font-semibold"
-                  variants={{
-                    hidden: { opacity: 0, scale: 0.95 },
-                    visible: { opacity: 1, scale: 1 },
-                  }}
-                >
-                  <CountUp end={50} suffix="+" />
-                </motion.div>
-                <div className="text-sm text-muted-foreground">
-                  Premium Brands
-                </div>
-              </motion.li>
+              <SocialProofItem end={50} suffix="+" label="Premium Brands" />
             </motion.ul>
           </div>
         </div>

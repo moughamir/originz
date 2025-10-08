@@ -10,8 +10,8 @@ import { AuthProvider } from "@/contexts/auth-context";
 import { CartProvider } from "@/contexts/cart-context";
 import { ComposeProvider } from "@/lib/compose-provider";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-type ProviderWithProps<P = {}> = [
+ 
+type ProviderWithProps<P = object> = [
   React.ComponentType<P & { children: React.ReactNode }>,
   P
 ];

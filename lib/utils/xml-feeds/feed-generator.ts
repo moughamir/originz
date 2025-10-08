@@ -23,12 +23,12 @@ import {
   VariantPricing,
 } from "./types";
 
-export function getXmlNamespace(feedType: MerchantFeedType): string {
+export function getXmlNamespace(_feedType: MerchantFeedType): string {
   // Both Google and Bing use the same 'g' namespace
   return 'xmlns:g="http://base.google.com/ns/1.0"';
 }
 
-export function getNamespacePrefix(feedType: MerchantFeedType): string {
+export function getNamespacePrefix(_feedType: MerchantFeedType): string {
   // Both Google and Bing use 'g' as well
   return "g";
 }
