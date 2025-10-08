@@ -3,7 +3,7 @@ import Link from "next/link";
 import { subscribeToNewsletter } from "@/app/api/newsletter/actions";
 import { Logo } from "@blocks/common/logo";
 import { SafeHtml } from "@blocks/common/safe-html";
-import { PaymentMethods } from "@/components/icons/payment-methods";
+import { PaymentMethods } from "@blocks/icons/payment-methods";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
