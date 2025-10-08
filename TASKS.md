@@ -30,6 +30,7 @@
 ----[x] NAME:P3.2.10 Clean up misc components DESCRIPTION:Delete unused components from components/misc.
 ----[x] NAME:P3.2.11 Migrate pwa components DESCRIPTION:Move components from components/pwa to components/blocks/pwa.
 ----[x] NAME:P3.2.12 Migrate sections components DESCRIPTION:Move components from components/sections to components/blocks/sections.
+----[x] NAME:P3.2.13 Migrate icons components DESCRIPTION:Move components from components/icons to components/blocks/icons.
 ---[ ] NAME:P3.3 Update imports via codemod + add path aliases DESCRIPTION:Introduce @blocks/* and @ui/* aliases in tsconfig; run codemod to rewrite import paths safely. (Aliases added)
 ---[ ] NAME:P3.4 Consolidate skeleton patterns DESCRIPTION:Standardize skeletons usage and location (per-feature or shared primitives) and update callsites.
 ---[~] NAME:P3.5 Verify build and pages after migration DESCRIPTION:Run type checks and a local build to ensure no regressions from moves. (Verifying after each migration)

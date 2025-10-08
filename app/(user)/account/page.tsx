@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { AccountGate } from "@blocks/account/account-gate";
-import { AccountDashboardSkeleton } from "@/components/skeletons/account-skeleton";
+import { AccountDashboardSkeleton } from "@blocks/skeletons/account-skeleton";
 import { generateSEO } from "@/lib/seo";
 
 export const metadata: Metadata = generateSEO({

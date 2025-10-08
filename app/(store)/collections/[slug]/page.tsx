@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { ProductCard } from "@blocks/product/product-card";
-import { CollectionSkeleton } from "@/components/skeletons/collection-skeleton";
+import { CollectionSkeleton } from "@blocks/skeletons/collection-skeleton";
 import { Button } from "@/components/ui/button";
 import { getProducts, getCollectionByHandle } from "@/lib/data/products";
 import { generateSEO } from "@/lib/seo";

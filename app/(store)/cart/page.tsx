@@ -7,7 +7,7 @@ import { Suspense, useState } from "react";
 import { toast } from "sonner";
 import { EmptyCart } from "@blocks/cart/empty-cart";
 import { QuantityInput } from "@blocks/cart/quantity-input";
-import { CartSkeleton } from "@/components/skeletons/cart-skeleton";
+import { CartSkeleton } from "@blocks/skeletons/cart-skeleton";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/contexts/cart-context";

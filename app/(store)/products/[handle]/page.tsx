@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ProductSchema } from "@blocks/common/product-schema";
-import { ProductDetailsSkeleton } from "@/components/skeletons/product-details-skeleton";
+import { ProductDetailsSkeleton } from "@blocks/skeletons/product-details-skeleton";
 import { ProductProvider } from "@/contexts/product-context";
 import { getProducts, getProductByHandle } from "@/lib/data/products";
 import { SITE_CONFIG } from "@/lib/constants";

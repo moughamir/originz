@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProductCardSkeleton } from "@/components/skeletons/product-card-skeleton";
+import { ProductCardSkeleton } from "@blocks/skeletons/product-card-skeleton";
 
 export function FeaturedProductsSkeleton() {
 	return (
