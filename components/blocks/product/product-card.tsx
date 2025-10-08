@@ -4,7 +4,7 @@ import { Loader2, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useCallback, useEffect, useRef } from "react";
-import { BuyNowButton } from "@/components/product/buy-now-button";
+import { BuyNowButton } from "@blocks/product/buy-now-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/cart-context";

@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
-import { ProductCard } from "@/components/product/product-card";
+import { ProductCard } from "@blocks/product/product-card";
 import { FeaturedProductsSkeleton } from "@/components/skeletons/featured-products-skeleton";
 import { Button } from "@/components/ui/button";
 import { getCollectionByHandle } from "@/lib/data/products";

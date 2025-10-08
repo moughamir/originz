@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-import { ProductCard } from "@/components/product/product-card";
+import { ProductCard } from "@blocks/product/product-card";
 import { CollectionSkeleton } from "@/components/skeletons/collection-skeleton";
 import { Button } from "@/components/ui/button";
 import { getProducts, getCollectionByHandle } from "@/lib/data/products";

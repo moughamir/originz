@@ -11,7 +11,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { ProductSchema } from "@/components/common/product-schema";
 import { SafeHtml } from "@/components/common/safe-html";
-import { BuyNowButton } from "@/components/product/buy-now-button";
+import { BuyNowButton } from "@blocks/product/buy-now-button";
 import { normalizeProductTags } from "@/lib/utils";
 import {
   Accordion,

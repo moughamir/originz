@@ -3,7 +3,7 @@
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ProductCard } from "@/components/product/product-card";
+import { ProductCard } from "@blocks/product/product-card";
 import { useEffect, useState } from "react";
 
 import type { ApiProduct } from "@/lib/types";

@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
-import { ProductCard } from "@/components/product/product-card";
+import { ProductCard } from "@blocks/product/product-card";
 import type { ApiProduct } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
