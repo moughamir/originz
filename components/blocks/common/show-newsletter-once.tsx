@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Newsletter } from "@/components/sections/newsletter";
+import { Newsletter } from "@blocks/sections/newsletter";
 
 export function ShowNewsletterOnce() {
 	const [show, setShow] = useState(false);

@@ -28,6 +28,7 @@
 ----[x] NAME:P3.2.8 Migrate common components DESCRIPTION:Move components from components/common to components/blocks/common.
 ----[x] NAME:P3.2.9 Migrate layout components DESCRIPTION:Move components from components/layout to components/blocks/layout.
 ----[x] NAME:P3.2.10 Clean up misc components DESCRIPTION:Delete unused components from components/misc.
+----[x] NAME:P3.2.11 Migrate pwa components DESCRIPTION:Move components from components/pwa to components/blocks/pwa.
 ---[ ] NAME:P3.3 Update imports via codemod + add path aliases DESCRIPTION:Introduce @blocks/* and @ui/* aliases in tsconfig; run codemod to rewrite import paths safely. (Aliases added)
 ---[ ] NAME:P3.4 Consolidate skeleton patterns DESCRIPTION:Standardize skeletons usage and location (per-feature or shared primitives) and update callsites.
 ---[~] NAME:P3.5 Verify build and pages after migration DESCRIPTION:Run type checks and a local build to ensure no regressions from moves. (Verifying after each migration)

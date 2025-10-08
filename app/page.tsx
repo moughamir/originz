@@ -1,10 +1,10 @@
 import { ShowNewsletterOnce } from "@blocks/common/show-newsletter-once";
 import { PageLayout } from "@blocks/layout/page-layout";
-import { FeaturedProducts } from "@/components/sections/featured-products";
-import { Hero } from "@/components/sections/hero";
-import { InfoSections } from "@/components/sections/info-sections";
-import { Partners } from "@/components/sections/partners";
-import { Reviews } from "@/components/sections/reviews";
+import { FeaturedProducts } from "@blocks/sections/featured-products";
+import { Hero } from "@blocks/sections/hero";
+import { InfoSections } from "@blocks/sections/info-sections";
+import { Partners } from "@blocks/sections/partners";
+import { Reviews } from "@blocks/sections/reviews";
 import { generateSEO } from "@/lib/seo";
 
 export const revalidate = 60;
