@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { AccountGate } from "@/components/account/account-gate";
+import { AccountGate } from "@blocks/account/account-gate";
 import { AccountDashboardSkeleton } from "@/components/skeletons/account-skeleton";
 import { generateSEO } from "@/lib/seo";
 
