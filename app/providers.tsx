@@ -3,7 +3,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 
-import ErrorBoundary from "@/components/common/error-boundary";
+import ErrorBoundary from "@blocks/common/error-boundary";
 import { PWAProvider } from "@/components/pwa/pwa-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/contexts/auth-context";

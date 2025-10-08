@@ -4,7 +4,7 @@ import {
   ArticleSection,
   ArticleWrapper,
   UnorderdList,
-} from "@/components/common/static-page";
+} from "@blocks/common/static-page";
 import { APP_CONTACTS, SITE_CONFIG } from "@/lib/constants";
 import { generateSEO } from "@/lib/seo";
 export const metadata: Metadata = generateSEO({

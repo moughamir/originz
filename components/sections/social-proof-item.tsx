@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CountUp } from "@/components/common/count-up";
+import { CountUp } from "@blocks/common/count-up";
 
 interface SocialProofItemProps {
   end: number;

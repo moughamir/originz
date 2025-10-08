@@ -14,6 +14,7 @@ export function SafeHtml({
 		USE_PROFILES: { html: true },
 	});
 	return (
+		// eslint-disable-next-line react/no-danger
 		<div className={className} dangerouslySetInnerHTML={{ __html: clean }} />
 	);
 }

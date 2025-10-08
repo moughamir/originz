@@ -2,7 +2,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 import { subscribeToNewsletter } from "@/app/api/newsletter/actions";
 import { Logo } from "@blocks/common/logo";
-import { SafeHtml } from "@/components/common/safe-html";
+import { SafeHtml } from "@blocks/common/safe-html";
 import { PaymentMethods } from "@/components/icons/payment-methods";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

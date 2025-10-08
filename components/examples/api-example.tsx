@@ -5,7 +5,7 @@ import { useApi } from "@/hooks/use-api";
 import { formatErrorMessage, isNotFoundError } from "@/lib/error-utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { withErrorBoundary } from "@/components/common/with-error-boundary";
+import { withErrorBoundary } from "@blocks/common/with-error-boundary";
 import type { ApiProduct } from "@/lib/types";
 import Image from "next/image";
 /**

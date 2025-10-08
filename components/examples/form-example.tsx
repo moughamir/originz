@@ -5,7 +5,7 @@ import { useForm } from "@/hooks/use-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ErrorBoundaryWrapper } from "@/components/common/with-error-boundary";
+import { ErrorBoundaryWrapper } from "@blocks/common/with-error-boundary";
 
 // Define the form schema
 const contactFormSchema = z.object({

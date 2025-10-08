@@ -9,8 +9,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { ProductSchema } from "@/components/common/product-schema";
-import { SafeHtml } from "@/components/common/safe-html";
+import { ProductSchema } from "@blocks/common/product-schema";
+import { SafeHtml } from "@blocks/common/safe-html";
 import { BuyNowButton } from "@blocks/product/buy-now-button";
 import { normalizeProductTags } from "@/lib/utils";
 import {

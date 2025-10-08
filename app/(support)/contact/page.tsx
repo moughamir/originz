@@ -2,7 +2,7 @@ import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import type { Metadata } from "next";
 import { useId } from "react";
 import { InlineChat } from "@blocks/chat/inline-chat";
-import { SafeHtml } from "@/components/common/safe-html";
+import { SafeHtml } from "@blocks/common/safe-html";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { APP_CONTACTS } from "@/lib/constants";

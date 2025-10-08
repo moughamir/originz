@@ -3,7 +3,7 @@ import "@/app/globals.css";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Viewport } from "next";
-import { WebsiteSchema } from "@/components/common/website-schema";
+import { WebsiteSchema } from "@blocks/common/website-schema";
 import { env } from "@/lib/env-validation";
 import { Providers } from "./providers";
 
