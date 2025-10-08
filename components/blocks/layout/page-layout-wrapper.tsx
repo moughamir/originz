@@ -4,9 +4,9 @@
  */
 
 import React from "react";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { AnnouncementBar } from "@/components/layout/announcement-bar";
+import { Header } from "@blocks/layout/header";
+import { Footer } from "@blocks/layout/footer";
+import { AnnouncementBar } from "@blocks/layout/announcement-bar";
 
 interface ServerPageLayoutProps {
   children: React.ReactNode;

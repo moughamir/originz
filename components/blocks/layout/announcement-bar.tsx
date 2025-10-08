@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { X, Play, Pause } from "lucide-react";
 import { useEffect, useState } from "react";
-import { IconButton } from "../ui/button";
+import { IconButton } from "@ui/button";
 
 const ANNOUNCEMENTS = [
   "🎉 Free shipping on orders over $50 - Limited time offer!",

@@ -1,5 +1,5 @@
 import { ShowNewsletterOnce } from "@blocks/common/show-newsletter-once";
-import { PageLayout } from "@/components/layout/page-layout";
+import { PageLayout } from "@blocks/layout/page-layout";
 import { FeaturedProducts } from "@/components/sections/featured-products";
 import { Hero } from "@/components/sections/hero";
 import { InfoSections } from "@/components/sections/info-sections";

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PageLayout } from "@/components/layout/page-layout";
+import { PageLayout } from "@blocks/layout/page-layout";
 import { Button } from "@/components/ui/button";
 
 export const dynamic = "force-dynamic";

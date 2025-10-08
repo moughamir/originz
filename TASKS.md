@@ -25,6 +25,7 @@
 ----[x] NAME:P3.2.5 Migrate checkout components DESCRIPTION:Move components from components/checkout to components/blocks/checkout.
 ----[x] NAME:P3.2.6 Migrate admin components DESCRIPTION:Clean up unused components from components/admin.
 ----[x] NAME:P3.2.7 Migrate chat components DESCRIPTION:Move components from components/chat to components/blocks/chat.
+----[x] NAME:P3.2.8 Migrate common components DESCRIPTION:Move components from components/common to components/blocks/common.
 ---[ ] NAME:P3.3 Update imports via codemod + add path aliases DESCRIPTION:Introduce @blocks/* and @ui/* aliases in tsconfig; run codemod to rewrite import paths safely. (Aliases added)
 ---[ ] NAME:P3.4 Consolidate skeleton patterns DESCRIPTION:Standardize skeletons usage and location (per-feature or shared primitives) and update callsites.
 ---[~] NAME:P3.5 Verify build and pages after migration DESCRIPTION:Run type checks and a local build to ensure no regressions from moves. (Verifying after each migration)
