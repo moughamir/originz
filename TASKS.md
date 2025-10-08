@@ -16,11 +16,17 @@
 ---[x] NAME:P2.5 Validate with type checks and smoke build DESCRIPTION:Ensure next build passes; run type checks; no functional changes expected.
 ---[x] NAME:P2.6 Document cleanup changes and risks DESCRIPTION:Summarize what changed, why, and any follow-ups.
 --[ ] NAME:Phase 3: Component Organization – Preserve shadcn/ui, migrate to components/blocks (MEDIUM) DESCRIPTION:Keep components/ui untouched. Move other custom components to components/blocks organized by feature/use-case. Update imports safely.
----[ ] NAME:P3.1 Create components/blocks structure and feature groups DESCRIPTION:Create components/blocks and decide feature groupings (account, admin, cart, checkout, product, layout, sections, pwa, chat, common, icons, examples).
+---[x] NAME:P3.1 Create components/blocks structure and feature groups DESCRIPTION:Create components/blocks and decide feature groupings (account, admin, cart, checkout, product, layout, sections, pwa, chat, common, icons, examples).
 ---[ ] NAME:P3.2 Plan and execute component moves (exclude components/ui) DESCRIPTION:Move custom components into blocks groups, preserving index barrels and relative imports where possible.
----[ ] NAME:P3.3 Update imports via codemod + add path aliases DESCRIPTION:Introduce @blocks/* and @ui/* aliases in tsconfig; run codemod to rewrite import paths safely.
+----[x] NAME:P3.2.1 Migrate logo components DESCRIPTION:Move logo components from components/common and components/misc to components/blocks/common and components/blocks/misc.
+----[x] NAME:P3.2.2 Migrate cart components DESCRIPTION:Move components from components/cart to components/blocks/cart.
+----[x] NAME:P3.2.3 Migrate product components DESCRIPTION:Move components from components/product to components/blocks/product.
+----[x] NAME:P3.2.4 Migrate account components DESCRIPTION:Move components from components/account to components/blocks/account and remove unused components.
+----[x] NAME:P3.2.5 Migrate checkout components DESCRIPTION:Move components from components/checkout to components/blocks/checkout.
+----[x] NAME:P3.2.6 Migrate admin components DESCRIPTION:Clean up unused components from components/admin.
+---[ ] NAME:P3.3 Update imports via codemod + add path aliases DESCRIPTION:Introduce @blocks/* and @ui/* aliases in tsconfig; run codemod to rewrite import paths safely. (Aliases added)
 ---[ ] NAME:P3.4 Consolidate skeleton patterns DESCRIPTION:Standardize skeletons usage and location (per-feature or shared primitives) and update callsites.
----[ ] NAME:P3.5 Verify build and pages after migration DESCRIPTION:Run type checks and a local build to ensure no regressions from moves.
+---[~] NAME:P3.5 Verify build and pages after migration DESCRIPTION:Run type checks and a local build to ensure no regressions from moves. (Verifying after each migration)
 ---[ ] NAME:P3.0 Review prepared custom blocks for refactor & integration DESCRIPTION:Audit user-prepared custom blocks, note DRY/SOLID issues, and prioritize fixes before migration to components/blocks.
 --[ ] NAME:Phase 4: Data Fetching & Loading States – Suspense + Streaming (MEDIUM) DESCRIPTION:Audit pages that fetch data. Implement Suspense boundaries with skeletons and adopt Next.js streaming patterns.
 ---[ ] NAME:P4.1 Audit data-fetching pages and APIs DESCRIPTION:Identify all pages/components using fetch, server actions, or client hooks that call APIs; document data dependencies and current caching.
