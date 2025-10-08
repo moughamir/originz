@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import CartDrawer from "@/components/cart/cart-drawer";
+import CartDrawer from "@blocks/cart/cart-drawer";
 import { Logo } from "@blocks/common/logo";
 import { SearchBar } from "@/components/common/search-bar";
 import { Badge } from "@/components/ui/badge";

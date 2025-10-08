@@ -5,8 +5,8 @@ import Image from "next/image";
 
 import { Suspense, useState } from "react";
 import { toast } from "sonner";
-import { EmptyCart } from "@/components/cart/empty-cart";
-import { QuantityInput } from "@/components/cart/quantity-input";
+import { EmptyCart } from "@blocks/cart/empty-cart";
+import { QuantityInput } from "@blocks/cart/quantity-input";
 import { CartSkeleton } from "@/components/skeletons/cart-skeleton";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
